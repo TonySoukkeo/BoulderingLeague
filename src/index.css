@@ -1,14 +1,269 @@
+/** GENERAL STYLING **/
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: #b7b7b7;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.back-btn {
+  color: #042c3d;
+}
+
+.back-btn:hover {
+  color: #35562d;
+}
+
+.input-field {
+  background-color: blue;
+}
+
+/** NAVAR STYLING **/
+
+.hamburger-icon {
+  color: #fff;
+}
+
+.navbar {
+  background: #1e1e1e;
+  color: #fff;
+  border-bottom: 3px solid #6fbf60;
+}
+
+.nav-link {
+  color: #fff;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+
+.nav-item a:hover {
+  color: #6fbf60 !important;
+}
+
+/** BANNER STYLING **/
+.banner {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/9606/people-woman-sport-muscles.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-repeat: none;
+  background-size: cover;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#homepage-body {
+  margin-top: 50px;
+}
+
+/* SIGNUP FORM STYLING  */
+
+.signup-btn {
+  background-color: #086aa0;
+  color: #e8e9ea;
+}
+
+.signup-hr {
+  background-color: #e8e9ea;
+  width: 85%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.signup-form-label {
+  color: #e8e9ea;
+  font-weight: bold;
+}
+
+.sign-up-btn {
+  color: #e8e9ea;
+  background-color: #065184;
+}
+
+/** FONT-AWESOME STYLING **/
+.first {
+  color: gold;
+}
+
+.second {
+  color: silver;
+}
+
+.third {
+  color: brown;
+}
+
+.plus {
+  color: green;
+}
+
+.minus {
+  color: red;
+}
+
+/** EDIT PROFILE STYLING **/
+#left-profile-col {
+  background: #1e1e1e;
+  color: green;
+  padding: 30px;
+  border-radius: 10%;
+}
+
+/* CARD LAYOUT */
+
+.card {
+  color: #ebeced;
+  background-color: #4b4b4b;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-footer {
+  background-color: #1e1e1e;
+  padding: 10px 10px;
+}
+
+.card-header {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #6fbf60;
+  color: #e8e9ea;
+  padding: 5px 10px;
+}
+
+.comments {
+  color: #e8e9ea;
+}
+
+.have-climbed {
+  color: #6fbf60;
+}
+
+.route-grade {
+  font-size: 3rem;
+  padding-bottom: 2px;
+}
+
+.fa-comments {
+  color: #15a0ed;
+}
+
+.test:hover {
+  color: #83db71;
+}
+
+.test {
+  text-decoration: none;
+}
+
+/* BUTTONS STYLING */
+.btn-edit {
+  color: #e8e9ea;
+  background-color: #06591e;
+}
+
+.btn-delete {
+  color: #e8e9ea;
+  background-color: #5b1a04;
+  margin-top: 2px;
+}
+
+.btn-completed {
+  color: #e8e9ea;
+  background-color: #065184;
+}
+
+.btn-not-completed {
+  color: #e8e9ea;
+  background-color: #5b1a04;
+}
+
+/* LEADERBOARD STYLING */
+.leaderboard {
+  background-color: #efefef;
+}
+
+.leaderboard-names {
+  color: #065184;
+}
+
+.leaderboard-badge {
+  background-color: #096b22;
+  margin-left: 10px;
+}
+
+.leaderboard-btn {
+  background-color: #086aa0;
+  color: #e8e9ea;
+}
+
+.leaderboard-btn:hover {
+  color: #e8e9ea;
+}
+
+/* USER PROFILE STYLING */
+.profile-card {
+  background-color: #1e1e1e;
+}
+
+.profile-hr {
+  background-color: #6fbf60;
+  width: 40%;
+}
+
+.profile-list {
+  background-color: #efefef;
+  color: #065184;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 300px) {
+  .profile-left {
+    margin-bottom: 30px;
+  }
+
+  .profile-right {
+    margin-bottom: 30px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  /* USER PROFILE STYLING */
+  .profile-right {
+    margin-top: 49px;
+    margin-bottom: 100px;
+  }
+
+  .profile-left {
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+
+  /* HOMEPAGE BANNER STYLING */
+  .banner-form-margin {
+    margin-top: 100px;
+  }
+
+  .banner-text-margin {
+    margin-top: 30px;
+  }
+}
+
+/* COMMENTS STYLING */
+.comment-text {
+  color: #191919;
+}
+
+/* PICTURE UPLOAD STYLING */
+.picture-upload-text {
+  color: #e8e9ea;
+  text-transform: uppercase;
+}
+
+.upload-image {
+  color: #e8e9ea;
 }
