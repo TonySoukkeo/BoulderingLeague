@@ -7,9 +7,9 @@ import { firestoreConnect } from "react-redux-firebase";
 
 class RouteView extends Component {
   render() {
-    const { season, routeName, route } = this.props;
+    const { session, routeName, route } = this.props;
 
-    if (route && season) {
+    if (route && session) {
       return (
         <div className="container">
           <div className="row">
@@ -55,20 +55,20 @@ class RouteView extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  let currentSeason, currentRoute, route;
+  let currentSession, currentRoute, route;
 
   if (state.firebase.auth.uid && state.firestore.ordered) {
     const id = ownProps.match.params.id,
       urlTarget = id.split("_"),
-      season = urlTarget[0],
+      session = urlTarget[0],
       routeName = urlTarget[urlTarget.length - 1];
-    currentSeason = season;
+    currentSession = session;
     currentRoute = routeName;
-    route = state.firestore.ordered[season];
+    route = state.firestore.ordered[session];
   }
 
   return {
-    season: currentSeason,
+    session: currentSession,
     routeName: currentRoute,
     route
   };
@@ -76,7 +76,7 @@ const mapState = (state, ownProps) => {
 
 export default compose(
   connect(mapState),
-  firestoreConnect((season, routeName) =>
-    viewRouteDetailedQuery(season, routeName)
+  firestoreConnect((session, routeName) =>
+    viewRouteDetailedQuery(session, routeName)
   )
 )(RouteView);

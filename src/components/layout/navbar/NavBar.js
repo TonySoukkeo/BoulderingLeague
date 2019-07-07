@@ -37,7 +37,6 @@ class NavBar extends Component {
               src="/assets/logo.png"
               alt="logo"
             />
-            <span className="mt-4 pt-2"> Hi-Line Bouldering League</span>
           </Link>
           <button
             className="navbar-toggler navbar-dark"

@@ -4,33 +4,34 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import AdultView from "./AdultView";
+import Spinner2 from "../../../common/helpers/Spinner2";
 
 class AdultLeaderboard extends Component {
   state = {
     adult: [],
-    season: ""
+    session: ""
   };
 
   componentDidMount() {
-    const seasonTotalValue = this.props.match.params.id;
+    const sessionTotalValue = this.props.match.params.id;
     this.setState({
-      season: seasonTotalValue
+      session: sessionTotalValue
     });
   }
 
   getAdultDivision = users => {
     const user = users.filter(x => x.division === "adult"),
-      { season } = this.state;
+      { session } = this.state;
 
-    const hasSeason = user.filter(x => x.season);
-    // filter out users with season totals
-    const adult = hasSeason.filter(x => x.season[season]);
+    const hasSession = user.filter(x => x.session);
+    // filter out users with session totals
+    const adult = hasSession.filter(x => x.session[session]);
 
     // Sort user total from high to low
-    const seasonTotal = adult.sort(
-      (a, b) => b.season[season] - a.season[season]
+    const sessionTotal = adult.sort(
+      (a, b) => b.session[session] - a.session[session]
     );
-    return seasonTotal;
+    return sessionTotal;
   };
 
   goBack = () => {
@@ -41,7 +42,7 @@ class AdultLeaderboard extends Component {
   };
 
   render() {
-    const { season } = this.state,
+    const { session } = this.state,
       { users } = this.props;
 
     if (users) {
@@ -61,12 +62,12 @@ class AdultLeaderboard extends Component {
                   style={{ marginBottom: ".7px" }}
                   className="card-header text-center"
                 >
-                  <h3>{season}</h3>
+                  <h3>{session}</h3>
                 </div>
 
                 <AdultView
                   users={this.getAdultDivision(users)}
-                  season={season}
+                  session={session}
                 />
               </div>
             </div>
@@ -74,7 +75,7 @@ class AdultLeaderboard extends Component {
         </div>
       );
     } else {
-      return <div>Loading</div>;
+      return <Spinner2 />;
     }
   }
 }

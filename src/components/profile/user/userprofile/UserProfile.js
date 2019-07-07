@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import UserProfileLeft from "./UserProfileLeft";
 import UserProfileRight from "./UserProfileRight";
+import UserRouteGrade from "./UserRouteGrade";
+import UserAchievements from "./UserAchievements";
+import UserProfileLevel from "../../../profile/profilelevel/UserProfileLevel";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -54,6 +57,10 @@ class UserProfile extends Component {
             <UserProfileLeft currentUser={currentUser} />
             <UserProfileRight currentUser={currentUser} />
           </div>
+
+          <UserRouteGrade user={currentUser} />
+
+          <UserAchievements user={currentUser} />
         </div>
       );
     } else {

@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 class YouthDivision extends Component {
   render() {
-    const { seasonTotalValue, users } = this.props;
+    const { sessionTotalValue, users } = this.props;
 
-    if (users) {
+    if (users && users.length !== 0) {
       return (
         <div className="card">
           <div
@@ -33,12 +33,12 @@ class YouthDivision extends Component {
                     {x.firstName} {x.lastName}{" "}
                   </NavLink>
                   <span className="badge badge-pill leaderboard-badge">
-                    {x.season[seasonTotalValue]}
+                    {x.session[sessionTotalValue]}
                   </span>
                 </h5>
               </li>
             ))}
-            <NavLink to={`/leaderboard/youth/${seasonTotalValue}`}>
+            <NavLink to={`/leaderboard/youth/${sessionTotalValue}`}>
               <button className="btn btn-block btn-large leaderboard-btn">
                 View All
               </button>
@@ -47,7 +47,23 @@ class YouthDivision extends Component {
         </div>
       );
     } else {
-      return <div>Why...</div>;
+      return (
+        <div className="card">
+          <div
+            style={{
+              marginBottom: ".7px"
+            }}
+            className="card-header text-center"
+          >
+            <h3>Youth Division</h3>
+          </div>
+          <div className="card-body">
+            <p style={{ fontSize: "1.3rem" }}>
+              Be the first to get on the board!
+            </p>
+          </div>
+        </div>
+      );
     }
   }
 }

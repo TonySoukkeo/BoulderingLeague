@@ -1,17 +1,23 @@
 /*
-  Change view for each season
-  * change firestore connect collection season on Tracker
-  * change season on getRoutesForTracker, from TrackerActions
-  * change seasonTotalValue from state to the corresponding season On Leaderboard.js
+  Change view for each session
+  * change firestore connect collection session on Tracker
+  * change session on getRoutesForTracker, from TrackerActions || Change session on routes, in mapStateToProps
+  * change sessionTotalValue from state to the corresponding session On Leaderboard.js
+  * Change currentSession on state for Tracker, for Active session toggle for live view
+  * For Each new session, go into Admin Add routes, and change the option from previous session to the next session
 */
 import React, { Component } from "react";
+import AlertDisplay from "./alertdisplay/AlertDisplay";
 import Routes from "../routes/Routes";
 import AdminAddRoute from "./adminadd/AdminAddRoute";
 import Leaderboard from "../leaderboard/Leaderboard";
 import { deleteRoute } from "../routes/RoutesAction";
 import { updateDivision } from "../../auth/AuthActions";
+import SessionSelector from "./activesession/SessionSelector";
+import RoutesIntermission from "../../common/helpers/RoutesIntermission";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import UserProfileLevel from "../profile/profilelevel/UserProfileLevel";
 import { getRoutesForTracker } from "./TrackerActions";
 import { firestoreConnect } from "react-redux-firebase";
 
@@ -19,31 +25,11 @@ class Tracker extends Component {
   state = {
     showAddRoutes: false,
     moreRoutes: false,
-    loadingInitial: true,
-    loadedRoutes: [],
-    age: ""
+    age: "",
+    currentSession: "session1"
   };
 
-  async componentDidMount() {
-    const { getRoutesForTracker } = this.props;
-
-    let next = await getRoutesForTracker();
-
-    if (next && next.docs && next.docs.length > 1) {
-      this.setState({
-        moreRoutes: true,
-        loadingInitial: false
-      });
-    }
-  }
-
   async componentWillReceiveProps(nextProps) {
-    if (this.props.season !== nextProps.season) {
-      this.setState({
-        loadedRoutes: [...this.state.loadedRoutes, ...nextProps.season]
-      });
-    }
-
     if (this.props.profile.dateOfBirth) {
       // Calculate users age
       let today = new Date(),
@@ -62,19 +48,6 @@ class Tracker extends Component {
     }
   }
 
-  getNextRoutes = async () => {
-    const { season, getRoutesForTracker } = this.props;
-    let lastRoute = season && season[season.length - 1];
-
-    let next = await getRoutesForTracker(lastRoute);
-
-    if (next && next.docs && next.docs.length <= 1) {
-      this.setState({
-        moreRoutes: false
-      });
-    }
-  };
-
   hideRoute = () => {
     this.setState({
       showAddRoutes: false
@@ -82,13 +55,27 @@ class Tracker extends Component {
   };
 
   render() {
-    const { profile, auth, deleteRoute } = this.props,
-      { showAddRoutes, loadedRoutes, moreRoutes } = this.state;
+    const { profile, auth, deleteRoute, routes } = this.props,
+      { showAddRoutes, currentSession } = this.state;
 
-    let AddRoutes;
-    if (profile && profile.admin === true) {
+    let AddRoutes, getRoutes;
+
+    if (routes) {
+      // Sort routes by routeGrade
+      getRoutes = routes.sort((a, b) => {
+        if (a.routeGrade > b.routeGrade) return 1;
+        else if (b.routeGrade > a.routeGrade) return -1;
+        else return 0;
+      });
+    }
+
+    if (
+      (profile && profile.permission === "admin") ||
+      profile.permission === "route setter"
+    ) {
       AddRoutes = (
         <div className="mb-4">
+          <SessionSelector currentSession={currentSession} />
           <button
             onClick={() =>
               this.setState({
@@ -111,40 +98,73 @@ class Tracker extends Component {
       );
     }
 
-    if (loadedRoutes) {
-      return (
-        <div className="container mt-5">
-          <div className="row">
-            <div className="col-md-5 d-md-none mb-3">
-              <Leaderboard />
-            </div>
-            <div className="col-md-7">
-              {AddRoutes}
+    return (
+      <div className="container mt-5">
+        <AlertDisplay profile={profile} />
+        <div className="row">
+          <div className="col-md-5 d-md-none mb-3">
+            <UserProfileLevel currentUser={profile} />
+            <Leaderboard />
+          </div>
+          <div className="col-md-7 d-md-none mb-3">
+            {AddRoutes}
+            {routes ? (
               <Routes
-                getNextRoutes={this.getNextRoutes}
-                moreRoutes={moreRoutes}
-                routes={loadedRoutes}
+                currentSession={currentSession}
+                routes={getRoutes}
                 auth={auth}
                 deleteRoute={deleteRoute}
                 profile={profile}
               />
-            </div>
-            <div className="col-md-5 d-none d-md-block">
-              <Leaderboard />
-            </div>
+            ) : (
+              <div>
+                {profile.permission === "admin" ||
+                profile.permission === "route setter" ? (
+                  <h2 className="text-center">Start adding in some routes</h2>
+                ) : (
+                  <h2 className="text-center">New Routes coming soon!</h2>
+                )}
+                <RoutesIntermission />
+              </div>
+            )}
+          </div>
+          <div className="col-md-7 d-none d-md-block mb-3">
+            <UserProfileLevel currentUser={profile} />
+            {AddRoutes}
+            {routes ? (
+              <Routes
+                currentSession={currentSession}
+                routes={getRoutes}
+                auth={auth}
+                deleteRoute={deleteRoute}
+                profile={profile}
+              />
+            ) : (
+              <div>
+                {profile.permission === "admin" ||
+                profile.permission === "route setter" ? (
+                  <h2 className="text-center">Start adding in some routes</h2>
+                ) : (
+                  <h2 className="text-center">New Routes coming soon!</h2>
+                )}
+                <RoutesIntermission />
+              </div>
+            )}
+          </div>
+          <div className="col-md-5 d-none d-md-block">
+            <Leaderboard />
           </div>
         </div>
-      );
-    } else {
-      return <div>loading</div>;
-    }
+      </div>
+    );
   }
 }
 
 const mapState = state => ({
   profile: state.firebase.profile,
   auth: state.firebase.auth,
-  season: state.season
+  session: state.session,
+  routes: state.firestore.ordered.session1 // Change session for routes display view
 });
 
 const actions = {
@@ -154,7 +174,7 @@ const actions = {
 };
 
 export default compose(
-  firestoreConnect([{ collection: "season1" }]),
+  firestoreConnect([{ collection: "session1" }]), // change session for routes display view
   connect(
     mapState,
     actions

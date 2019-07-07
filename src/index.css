@@ -1,6 +1,6 @@
 /** GENERAL STYLING **/
 body {
-  background: #b7b7b7;
+  background: #ceced6;
 }
 
 .back-btn {
@@ -13,6 +13,14 @@ body {
 
 .input-field {
   background-color: blue;
+}
+
+.hide {
+  display: none;
+}
+
+.active {
+  color: #fff !important;
 }
 
 /** NAVAR STYLING **/
@@ -41,7 +49,7 @@ body {
 
 /** BANNER STYLING **/
 .banner {
-  min-height: 100vh;
+  height: 100%;
   position: relative;
   background-image: url("https://images.pexels.com/photos/9606/people-woman-sport-muscles.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500");
   background-repeat: none;
@@ -83,6 +91,107 @@ body {
 .sign-up-btn {
   color: #e8e9ea;
   background-color: #065184;
+}
+
+/*
+  TRACKER PAGE STYLING
+*/
+
+.attempt-plus,
+.attempt-minus {
+  cursor: pointer;
+}
+
+.attempt-plus-complete,
+.attempt-minus-complete {
+  color: #777777;
+}
+
+.attempt-plus {
+  color: #6fbf60;
+}
+
+.attempt-minus {
+  color: #bc0808;
+  margin-top: 1px;
+}
+
+/** RULES PAGE STYLING **/
+
+#rules h1 {
+  position: relative;
+  text-align: center;
+  color: #6fbf60;
+  font-weight: bold;
+  font-size: 3.4rem;
+  top: 186px;
+  z-index: 3;
+}
+
+#rules p {
+  font-size: 1.4rem;
+}
+
+#rules h2 {
+  color: #6fbf60;
+}
+
+#rules ul {
+  margin-top: 30px;
+}
+
+#rules li {
+  font-size: 1.3rem;
+}
+
+#rules .card {
+  position: relative;
+  z-index: 1;
+  padding-top: 200px;
+  top: -100px;
+}
+
+#rules-header {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  z-index: 2;
+}
+
+.rules-box1 {
+  position: relative;
+  transform: rotate(45deg);
+  margin-left: auto;
+  margin-right: auto;
+  height: 14rem;
+  width: 14rem;
+  background: rgba(58, 27, 233, 0.568);
+}
+
+.rules-box2 {
+  position: relative;
+  transform: rotate(33deg);
+  margin-top: -225px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 14rem;
+  width: 14rem;
+  background: rgba(219, 0, 0, 0.712);
+}
+
+.rules-xp-grade {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #6fbf60;
+}
+
+.rules-xp-list {
+  list-style-type: none;
+}
+
+.arrow-right {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /** FONT-AWESOME STYLING **/
@@ -219,38 +328,21 @@ body {
   color: #065184;
 }
 
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 300px) {
-  .profile-left {
-    margin-bottom: 30px;
-  }
-
-  .profile-right {
-    margin-bottom: 30px;
-  }
+/* ROUTE PROFILE TRACKER STYLING */
+.route-tracker-grade {
+  font-size: 2rem;
+  color: #6fbf60;
+  font-weight: bold;
 }
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  /* USER PROFILE STYLING */
-  .profile-right {
-    margin-top: 49px;
-    margin-bottom: 100px;
-  }
+.route-tracker-amount {
+  color: #e2e2e2;
+  font-size: 1.3rem;
+}
 
-  .profile-left {
-    margin-top: 30px;
-    margin-bottom: 100px;
-  }
-
-  /* HOMEPAGE BANNER STYLING */
-  .banner-form-margin {
-    margin-top: 100px;
-  }
-
-  .banner-text-margin {
-    margin-top: 30px;
-  }
+.route-tracker-styling {
+  background: #021f42;
+  border-color: #fff !important;
 }
 
 /* COMMENTS STYLING */
@@ -266,4 +358,106 @@ body {
 
 .upload-image {
   color: #e8e9ea;
+}
+
+/* ACHIEVEMENT STYLING */
+.achievement-icon {
+  height: 80px;
+  width: 80px;
+}
+
+.achievement-name {
+  font-size: 1rem;
+  color: #558e49;
+  font-weight: bold;
+}
+
+.achievement-details {
+  padding-top: 4px;
+  font-size: 0.7rem;
+}
+
+.achievement-date {
+  position: absolute;
+  padding-bottom: 5px;
+  right: 0;
+  bottom: 0;
+  font-style: italic;
+  margin-right: 10px;
+  font-size: 0.8rem;
+}
+
+.achievement-text-container {
+  position: relative;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.achievement-xp {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 15px;
+  padding-top: 10px;
+  color: #6fbf60;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 300px) {
+  .profile-left {
+    margin-bottom: 30px;
+  }
+
+  .profile-right {
+    margin-bottom: 30px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  /* USER PROFILE STYLING */
+  .profile-right {
+    margin-top: 37px;
+    margin-bottom: 100px;
+  }
+
+  .profile-left {
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+
+  .profile-right {
+    margin-bottom: 0;
+  }
+
+  /* HOMEPAGE BANNER STYLING */
+  .banner-form-margin {
+    margin-top: 100px;
+  }
+
+  .banner-text-margin {
+    margin-top: 30px;
+  }
+
+  /* ACHIVEMENT STYLING */
+  .achievement-icon {
+    height: 120px;
+    width: 120px;
+  }
+
+  .achievement-name {
+    font-size: 1.5rem;
+  }
+
+  .achievement-details {
+    font-size: 1rem;
+  }
+
+  .achievement-date {
+    font-size: 1rem;
+  }
+
+  .achievement-text-container {
+    padding: 15px;
+  }
 }

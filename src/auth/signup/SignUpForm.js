@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import TextInput from "../../common/form/TextInput";
-import DateInput from "../../common/form/DateInput";
 import RadioInput from "../../common/form/RadioInput";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { combineValidators, isRequired } from "revalidate";
+import {
+  combineValidators,
+  isRequired,
+  hasLengthGreaterThan,
+  matchesField,
+  composeValidators
+} from "revalidate";
 import { registerUser } from "../AuthActions";
 import { toastr } from "react-redux-toastr";
 import { withRouter } from "react-router-dom";
@@ -14,8 +19,15 @@ const validate = combineValidators({
   lastName: isRequired("Last Name"),
   dateOfBirth: isRequired("Date of Birth"),
   email: isRequired("Email"),
-  password: isRequired("Password"),
-  confirmPassword: isRequired("Confirm Password"),
+  password: composeValidators(
+    isRequired("Password"),
+    hasLengthGreaterThan(7)({
+      message: "Must be at least 8 characters long"
+    })
+  )(),
+  confirmPassword: matchesField("password")({
+    message: "passwords do not match"
+  }),
   gender: isRequired("Gender")
 });
 
@@ -23,6 +35,7 @@ class SignUpForm extends Component {
   registerUser = async user => {
     const { registerUser, history } = this.props;
 
+    console.log(user);
     // Check to see if gender is selected and passwords match
     if (user.password !== user.confirmPassword) {
       toastr.error("Error", "Passwords doesn't match");
@@ -79,14 +92,7 @@ class SignUpForm extends Component {
           <label className="signup-form-label" htmlFor="dateOfBirth">
             Date of Birth
           </label>
-          <Field
-            name="dateOfBirth"
-            dateFormat="MM-DD-YYYY"
-            showYearDropdown={true}
-            showMonthDropdown={true}
-            dopdownMode="select"
-            component={DateInput}
-          />
+          <Field name="dateOfBirth" type="date" component={TextInput} />
         </div>
         <div className="form-group">
           <label className="signup-form-label" htmlFor="email">
@@ -98,6 +104,7 @@ class SignUpForm extends Component {
           <label className="signup-form-label" htmlFor="password">
             Password
           </label>
+
           <Field name="password" type="password" component={TextInput} />
         </div>
         <div className="form-group">

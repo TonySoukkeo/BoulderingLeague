@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class YouthView extends Component {
   render() {
-    const { season, users } = this.props;
+    const { session, users } = this.props;
     let rank = 0;
     if (users) {
       return (
@@ -30,7 +30,7 @@ class YouthView extends Component {
                   </span>
                 </Link>
                 <span className="badge badge-pill leaderboard-badge">
-                  {x.season[season]}
+                  {x.session[session]}
                 </span>
               </h5>
             </li>

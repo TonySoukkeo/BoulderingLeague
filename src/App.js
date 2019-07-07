@@ -8,11 +8,14 @@ import Profile from "./components/profile/Profile";
 import UploadImage from "./components/profile/uploadimage/UploadImage";
 import Login from "./auth/login/Login";
 import SignUp from "./auth/signup/SignUp";
+import Rules from "./components/layout/rules/Rules";
 import EditRoute from "../src/components/routes/EditRoute";
+import AdminPage from "./components/admin page/AdminPage";
 import RouteView from "./components/routes/routeview/RouteView";
 import UserProfile from "./components/profile/user/userprofile/UserProfile";
 import AdultLeaderboard from "./components/leaderboard/adultdivision/AdultLeaderboard";
 import YouthLeaderboard from "./components/leaderboard/youthdivision/YouthLeaderboard";
+import AllDivisionLeaderboard from "./components/leaderboard/alldivision/AllDivisionLeaderboard";
 import RouteComment from "./components/routes/comments/RouteComment";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
@@ -31,6 +34,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <ReduxToastr
+            timeOut={4000}
+            preventDuplicates
             position="bottom-right"
             transitionIn="fadeIn"
             transitionOut="fadeOut"
@@ -60,6 +65,11 @@ class App extends Component {
               />
               <Route
                 exact
+                path="/admin"
+                component={UserIsAuthenticated(AdminPage)}
+              />
+              <Route
+                exact
                 path="/login"
                 component={UserIsNotAuthenticated(Login)}
               />
@@ -68,6 +78,15 @@ class App extends Component {
                 path="/signup"
                 component={UserIsNotAuthenticated(SignUp)}
               />
+
+              <Route exact path="/rules" component={Rules} />
+
+              <Route
+                exact
+                path="/leaderboard/overall/:id"
+                component={UserIsAuthenticated(AllDivisionLeaderboard)}
+              />
+
               <Route
                 exact
                 path="/leaderboard/adult/:id"

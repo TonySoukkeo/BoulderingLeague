@@ -12,19 +12,19 @@ import { firestoreConnect } from "react-redux-firebase";
 
 class RouteComment extends Component {
   state = {
-    season: "",
+    session: "",
     routeName: ""
   };
 
   componentDidMount() {
     const url = this.props.match.params.id,
       routePath = url.split("_"),
-      season = routePath[0],
+      session = routePath[0],
       routeName = routePath[routePath.length - 1];
 
     // Set state
     this.setState({
-      season,
+      session,
       routeName
     });
   }
@@ -32,19 +32,19 @@ class RouteComment extends Component {
   // Add Comment to Routes
   addComment = async comment => {
     const { addComment, profile, reset } = this.props,
-      { season, routeName } = this.state;
+      { session, routeName } = this.state;
 
-    await addComment(comment, profile, season, routeName);
+    await addComment(comment, profile, session, routeName);
 
     // Reset Form field value
     reset();
   };
 
   // Delete Comment
-  onClickDeleteComment = async (comment, season, routeName) => {
+  onClickDeleteComment = async (comment, session, routeName) => {
     const { deleteComment } = this.props;
 
-    await deleteComment(comment, season, routeName);
+    await deleteComment(comment, session, routeName);
   };
 
   goBack = () => {
@@ -56,9 +56,9 @@ class RouteComment extends Component {
 
   render() {
     const { profile, handleSubmit, comments } = this.props,
-      { season, routeName } = this.state;
+      { session, routeName } = this.state;
 
-    if (season && profile) {
+    if (session && profile) {
       return (
         <div className="container-fluid">
           <div className="row">
@@ -70,7 +70,7 @@ class RouteComment extends Component {
               <CommentForm
                 handleSubmit={handleSubmit}
                 addComment={this.addComment}
-                season={season}
+                session={session}
                 comments={comments}
                 routeName={routeName}
                 profile={profile}
@@ -87,22 +87,22 @@ class RouteComment extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  let currentSeason, currentRoute;
+  let currentSession, currentRoute;
 
   if (state.firebase.auth.uid) {
     const id = ownProps.match.params.id,
       urlTarget = id.split("_"),
-      season = urlTarget[0],
+      session = urlTarget[0],
       routeName = urlTarget[urlTarget.length - 1];
-    currentSeason = season;
+    currentSession = session;
     currentRoute = routeName;
   }
 
   return {
-    season: currentSeason,
+    session: currentSession,
     routeName: currentRoute,
     profile: state.firebase.profile,
-    comments: state.firestore.ordered[currentSeason]
+    comments: state.firestore.ordered[currentSession]
   };
 };
 
@@ -117,8 +117,8 @@ export default withRouter(
       mapState,
       actions
     ),
-    firestoreConnect((season, routeName) =>
-      routeCommentQuery(season, routeName)
+    firestoreConnect((session, routeName) =>
+      routeCommentQuery(session, routeName)
     )
   )(reduxForm({ form: "commentForm" })(RouteComment))
 );

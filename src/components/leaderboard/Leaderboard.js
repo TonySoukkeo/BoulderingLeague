@@ -1,89 +1,92 @@
 import React, { Component } from "react";
+import AllDivision from "./alldivision/AllDivision";
 import AdultDivision from "./adultdivision/AdultDivision";
 import YouthDivision from "./youthdivision/YouthDivision";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { getAdultDivision } from "./adultdivision/AdultActions";
+import Spinner2 from "../../common/helpers/Spinner2";
 
 class Leaderboard extends Component {
   state = {
-    seasonTotalValue: "season1Total"
+    sessionTotalValue: "session1Total"
   };
 
   getYouth = users => {
-    const { seasonTotalValue } = this.state;
+    const { sessionTotalValue } = this.state;
     const user = users.filter(x => x.division === "youth");
-    const hasSeason = user.filter(x => x.season);
-    let youth, seasonTotal;
+    const hasSession = user.filter(x => x.session);
+    let youth, sessionTotal;
 
-    const current = user.filter(x => x.season);
+    const current = user.filter(x => x.session);
 
     if (current.length !== 0 && current) {
-      // filter out users with season totals
-      youth = hasSeason.filter(x => x.season[seasonTotalValue]);
+      // filter out users with session totals
+      youth = hasSession.filter(x => x.session[sessionTotalValue]);
       // Sort user total from high to low
-      seasonTotal = youth.sort(
-        (a, b) => b.season[seasonTotalValue] - a.season[seasonTotalValue]
+      sessionTotal = youth.sort(
+        (a, b) => b.session[sessionTotalValue] - a.session[sessionTotalValue]
       );
 
-      if (seasonTotal.length > 3) {
+      if (sessionTotal.length > 3) {
         let topThree;
-        topThree = seasonTotal.slice(0, 3);
+        topThree = sessionTotal.slice(0, 3);
 
         return topThree;
       } else {
-        return seasonTotal;
+        return sessionTotal;
       }
     }
   };
 
   getAdult = users => {
-    const { seasonTotalValue } = this.state;
+    const { sessionTotalValue } = this.state;
     const user = users.filter(x => x.division === "adult");
-    const hasSeason = user.filter(x => x.season);
-    let adult, seasonTotal;
+    const hasSession = user.filter(x => x.session);
+    let adult, sessionTotal;
 
-    const current = user.filter(x => x.season);
+    const current = user.filter(x => x.session);
 
     if (current.length !== 0) {
-      // filter out users with season totals
-      adult = hasSeason.filter(x => x.season[seasonTotalValue]);
+      // filter out users with session totals
+      adult = hasSession.filter(x => x.session[sessionTotalValue]);
       // Sort user total from high to low
-      seasonTotal = adult.sort(
-        (a, b) => b.season[seasonTotalValue] - a.season[seasonTotalValue]
+      sessionTotal = adult.sort(
+        (a, b) => b.session[sessionTotalValue] - a.session[sessionTotalValue]
       );
 
-      if (seasonTotal.length > 3) {
+      if (sessionTotal.length > 3) {
         let topThree;
-        topThree = seasonTotal.slice(0, 3);
+        topThree = sessionTotal.slice(0, 3);
 
         return topThree;
       } else {
-        return seasonTotal;
+        return sessionTotal;
       }
     }
   };
 
   render() {
     const { users } = this.props,
-      { seasonTotalValue } = this.state;
+      { sessionTotalValue } = this.state;
 
     if (users) {
       return (
         <div className="sticky-top">
+          <AllDivision sessionTotalValue={sessionTotalValue} />
           <AdultDivision
             users={this.getAdult(users)}
-            seasonTotalValue={seasonTotalValue}
+            sessionTotalValue={sessionTotalValue}
           />
           <YouthDivision
             users={this.getYouth(users)}
-            seasonTotalValue={seasonTotalValue}
+            sessionTotalValue={sessionTotalValue}
           />
         </div>
       );
     } else {
-      return <div>Loading</div>;
+      return <Spinner2 />;
     }
   }
 }

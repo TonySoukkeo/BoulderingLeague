@@ -1,16 +1,16 @@
-import { FETCH_SEASON } from "./TrackerConstants";
+import { FETCH_SESSION, FETCH_ATTEMPTS } from "./TrackerConstants";
 import firebase from "../../config/firebase";
 
 export const getRoutesForTracker = lastRoute => async (dispatch, getState) => {
   let today = new Date(Date.now());
   const firestore = firebase.firestore(),
-    routesRef = firestore.collection(`season1`);
+    routesRef = firestore.collection(`session1`); // Change this value for each session view change
 
   try {
     let startAfter =
       lastRoute &&
       (await firestore
-        .collection(`${lastRoute.season}`)
+        .collection(`${lastRoute.session}`)
         .doc(lastRoute.routeName)
         .get());
 
@@ -18,14 +18,10 @@ export const getRoutesForTracker = lastRoute => async (dispatch, getState) => {
 
     lastRoute
       ? (query = routesRef
-          .where("datePosted", "<=", today)
-          .orderBy("datePosted")
+          .orderBy("routeGrade")
           .startAfter(startAfter)
           .limit(4))
-      : (query = routesRef
-          .where("datePosted", "<=", today)
-          .orderBy("datePosted")
-          .limit(4));
+      : (query = routesRef.orderBy("routeGrade").limit(4));
 
     let querySnap = await query.get();
 
@@ -42,7 +38,7 @@ export const getRoutesForTracker = lastRoute => async (dispatch, getState) => {
 
       routes.push(evt);
     }
-    dispatch({ type: FETCH_SEASON, payload: routes });
+    dispatch({ type: FETCH_SESSION, payload: routes });
     return querySnap;
   } catch (error) {
     console.log(error);

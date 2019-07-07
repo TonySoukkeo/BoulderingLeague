@@ -3,22 +3,29 @@ import { toastr } from "react-redux-toastr";
 import uuid from "uuid";
 
 // Add comment to route
-export const addComment = (comment, profile, season, routeName) => async (
+export const addComment = (comment, profile, session, routeName) => async (
   dispatch,
   getState,
-  { getFirestore }
+  { getFirestore, getFirebase }
 ) => {
   const firestore = getFirestore(),
+    firebase = getFirebase(),
     datePosted = moment(Date.now()).toDate(),
+    db = firebase.firestore(),
+    collection = db.collection(`${session}`).doc(`${routeName}`),
     commentUid = uuid();
 
   try {
     // Specify subcollection for comments on route
     const routeSubcollection = {
-      collection: `${season}`,
-      doc: routeName,
-      subcollections: [{ collection: "comments", doc: `${commentUid}` }]
-    };
+        collection: `${session}`,
+        doc: routeName,
+        subcollections: [{ collection: "comments", doc: `${commentUid}` }]
+      },
+      routeComment = {
+        collection: `${session}`,
+        doc: routeName
+      };
 
     // Set comments on route
     firestore.set(routeSubcollection, {
@@ -27,9 +34,40 @@ export const addComment = (comment, profile, season, routeName) => async (
       lastName: profile.lastName,
       photoUrl: profile.photoURL || "assets/user.png",
       comment: comment.comment,
-      admin: profile.admin,
+      permission: profile.permission,
       profileUid: profile.uid,
       commentUid
+    });
+
+    // Check to see if route as comments property
+    collection.get().then(res => {
+      let comments;
+      if (res.data().hasOwnProperty("commentCount")) {
+        comments = res.data().commentCount;
+
+        // set comment count on route
+        firestore.set(
+          `${session}/${routeName}`,
+          {
+            commentCount: (comments += 1)
+          },
+          {
+            merge: true
+          }
+        );
+      } else {
+        comments = 0;
+
+        firestore.set(
+          `${session}/${routeName}`,
+          {
+            commentCount: (comments += 1)
+          },
+          {
+            merge: true
+          }
+        );
+      }
     });
   } catch (error) {
     console.log(error);
@@ -38,22 +76,41 @@ export const addComment = (comment, profile, season, routeName) => async (
 };
 
 // Delete Comment
-export const deleteComment = (comment, season, routeName) => async (
+export const deleteComment = (comment, session, routeName) => async (
   dispatch,
   getState,
-  { getFirestore }
+  { getFirestore, getFirebase }
 ) => {
-  const firestore = getFirestore();
+  const firestore = getFirestore(),
+    firebase = getFirebase(),
+    db = firebase.firestore(),
+    collection = db.collection(`${session}`).doc(`${routeName}`);
 
   try {
     const comments = {
-      collection: `${season}`,
+      collection: `${session}`,
       doc: `${routeName}`,
       subcollections: [{ collection: "comments", doc: `${comment.commentUid}` }]
     };
 
     // Delete comment
     firestore.delete(comments);
+
+    // Remove comment counter from route
+
+    collection.get().then(res => {
+      let comments = res.data().commentCount;
+
+      firestore.set(
+        `${session}/${routeName}`,
+        {
+          commentCount: (comments -= 1)
+        },
+        {
+          merge: true
+        }
+      );
+    });
   } catch (error) {
     console.log(error);
   }

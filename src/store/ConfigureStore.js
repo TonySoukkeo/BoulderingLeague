@@ -26,7 +26,11 @@ export const ConfigureStore = preloadedState => {
     reduxFirestore(firebase)
   );
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancer);
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    compose(composeWithDevTools(composedEnhancer))
+  );
 
   if (process.env.NODE_ENV !== "production") {
     if (module.hot) {

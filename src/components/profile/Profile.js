@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import EditProfile from "./editprofile/EditProfile";
 import EditProfileDisplay from "./editprofiledisplay/EditProfileDisplay";
 import UserRouteGrade from "./user/userprofile/UserRouteGrade";
+import ProfileLevel from "./profilelevel/ProfileLevel";
+import UserAchievements from "./user/userprofile/UserAchievements";
 import { connect } from "react-redux";
 import Spinner from "../../common/helpers/Spinner";
 import { withRouter } from "react-router-dom";
@@ -28,10 +30,12 @@ class Profile extends Component {
             </div>
 
             <div className="col-md-7">
-              <UserRouteGrade user={user} />
+              <ProfileLevel />
               <EditProfile />
             </div>
           </div>
+          <UserRouteGrade user={user} />
+          <UserAchievements user={user} />
         </div>
       );
     } else {

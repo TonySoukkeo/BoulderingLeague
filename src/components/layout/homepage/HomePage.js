@@ -4,7 +4,7 @@ import Banner from "../banner/Banner";
 class HomePage extends Component {
   render() {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <Banner />
       </div>
     );

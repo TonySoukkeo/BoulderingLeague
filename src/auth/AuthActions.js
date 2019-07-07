@@ -58,9 +58,14 @@ export const registerUser = user => async (
       about: null,
       gender: user.gender,
       age,
+      experiencePoints: 0,
+      alert: {
+        welcomeMessage: true,
+        messageAlert: false
+      },
       uid: firebase.auth().currentUser.uid,
       division,
-      admin: false
+      permission: "member"
     };
     await firestore.set(`users/${firebase.auth().currentUser.uid}`, {
       ...newUser

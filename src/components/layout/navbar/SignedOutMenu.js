@@ -16,6 +16,11 @@ const SignedOutMenu = () => {
               Sign Up
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/rules" className="nav-link">
+              Rules
+            </Link>
+          </li>
         </ul>
       </div>
       <div className="d-block d-md-none ml-auto">
@@ -36,6 +41,16 @@ const SignedOutMenu = () => {
           >
             <Link to="/signup" className="nav-link">
               Sign Up
+            </Link>
+          </li>
+          <li
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            className="nav-item"
+            className="nav-item"
+          >
+            <Link to="/rules" className="nav-link">
+              Rules
             </Link>
           </li>
         </ul>

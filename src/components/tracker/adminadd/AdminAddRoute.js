@@ -7,12 +7,7 @@ import TextArea from "../../../common/form/TextArea";
 import TextInput from "../../../common/form/TextInput";
 import SelectInput from "../../../common/form/SelectInput";
 
-const season = [
-    { key: "season1", text: "Season 1", value: "season1" },
-    { key: "season2", text: "Season 2", value: "season2" },
-    { key: "season3", text: "Season 3", value: "season3" },
-    { key: "season4", text: "Season 4", value: "season4" }
-  ],
+const session = [{ key: "session1", text: "Session 1", value: "session1" }],
   grade = [
     {
       key: "v0",
@@ -55,19 +50,14 @@ const season = [
       value: "v7"
     },
     {
-      key: "v8",
-      text: "V8",
-      value: "v8"
-    },
-    {
-      key: "v9",
-      text: "V9",
-      value: "v9"
+      key: "special",
+      text: "Special",
+      value: "special"
     }
   ];
 
 const validate = combineValidators({
-  season: isRequired({ message: "Season is required" }),
+  session: isRequired({ message: "Session is required" }),
   routeGrade: isRequired({ message: "Grade needs to be specified" }),
   routeName: isRequired({ message: "Route name is required" })
 });
@@ -90,12 +80,12 @@ class AdminAddRoute extends Component {
         <div className="card-body">
           <form onSubmit={handleSubmit(this.addNewRoute)}>
             <div className="form-group">
-              <label htmlFor="season">Season:</label>
+              <label htmlFor="session">Session:</label>
               <Field
-                name="season"
+                name="session"
                 component={SelectInput}
                 type="text"
-                options={season}
+                options={session}
                 multiple={false}
                 className="form-control"
               />

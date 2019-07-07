@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 class AdultView extends Component {
   render() {
-    const { season, users } = this.props;
+    const { session, users } = this.props;
     let rank = 0;
     if (users) {
       return (
@@ -30,7 +30,7 @@ class AdultView extends Component {
                   </span>
                 </NavLink>
                 <span className="badge badge-pill leaderboard-badge">
-                  {x.season[season]}
+                  {x.session[session]}
                 </span>
               </h5>
             </li>

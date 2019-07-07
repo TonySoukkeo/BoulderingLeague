@@ -25,19 +25,19 @@ class EditRoute extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  let currentSeason, currentRoute, initialValues;
+  let currentSession, currentRoute, initialValues;
 
   if (state.firebase.auth.uid && state.firestore.ordered) {
     const id = ownProps.match.params.id,
       urlTarget = id.split("_"),
-      season = urlTarget[0],
+      session = urlTarget[0],
       routeName = urlTarget[urlTarget.length - 1];
-    initialValues = state.firestore.ordered[season];
-    currentSeason = season;
+    initialValues = state.firestore.ordered[session];
+    currentSession = session;
     currentRoute = routeName;
   }
   return {
-    season: currentSeason,
+    session: currentSession,
     route: currentRoute,
     initialValues,
     user: state.firebase.profile
@@ -46,5 +46,5 @@ const mapState = (state, ownProps) => {
 
 export default compose(
   connect(mapState),
-  firestoreConnect((season, route) => routeDetailedQuery(season, route))
+  firestoreConnect((session, route) => routeDetailedQuery(session, route))
 )(EditRoute);

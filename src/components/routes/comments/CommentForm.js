@@ -7,7 +7,7 @@ import format from "date-fns/format";
 const CommentForm = ({
   handleSubmit,
   addComment,
-  season,
+  session,
   comments,
   routeName,
   profile,
@@ -33,7 +33,7 @@ const CommentForm = ({
       <div className="card mb-5">
         <div className="card-header text-center">
           <h3>
-            {season}: {routeName} comments
+            {session}: {routeName} comments
           </h3>
         </div>
         <ul className="list-group">
@@ -60,7 +60,7 @@ const CommentForm = ({
                       {comment.firstName} {comment.lastName}
                     </span>
                   </Link>
-                  {comment.admin && (
+                  {comment.permission === "admin" && (
                     <span style={{ marginLeft: "20px", color: "green" }}>
                       <i className="fab fa-react fa-1x" /> Admin
                     </span>
@@ -91,10 +91,12 @@ const CommentForm = ({
                 >
                   <span className="comment-text"> {comment.comment}</span>
                 </div>
-                {profile.uid === comment.profileUid && (
+                {profile.uid === comment.profileUid ||
+                profile.permission === "admin" ||
+                profile.permission === "router setter" ? (
                   <button
                     onClick={() =>
-                      onClickDeleteComment(comment, season, routeName)
+                      onClickDeleteComment(comment, session, routeName)
                     }
                     type="button"
                     style={{ float: "right" }}
@@ -102,7 +104,7 @@ const CommentForm = ({
                   >
                     Delete
                   </button>
-                )}
+                ) : null}
               </li>
             ))}
         </ul>

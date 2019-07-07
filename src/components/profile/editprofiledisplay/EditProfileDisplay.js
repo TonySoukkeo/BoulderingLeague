@@ -50,10 +50,10 @@ const EditProfileDisplay = ({ user }) => {
           <p className="mt-5">
             <b>Overall Total:</b> {user.overallTotal}
           </p>
-          {user.season &&
-            objectToArray(user.season).map(season => (
-              <p key={season}>
-                <b>{season}:</b> {season.total}
+          {user.session &&
+            objectToArray(user.session).map(session => (
+              <p key={session}>
+                <b>{session}:</b> {session.total}
               </p>
             ))}
         </div>

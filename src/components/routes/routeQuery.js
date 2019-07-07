@@ -1,7 +1,7 @@
-export const routeDetailedQuery = ({ season, route }) => {
+export const routeDetailedQuery = ({ session, route }) => {
   return [
     {
-      collection: `${season}`,
+      collection: `${session}`,
       doc: `${route}`
     }
   ];
@@ -16,20 +16,20 @@ export const userDetailedQuery = user => {
   ];
 };
 
-export const viewRouteDetailedQuery = ({ season, routeName }) => {
+export const viewRouteDetailedQuery = ({ session, routeName }) => {
   return [
     {
-      collection: `${season}`,
+      collection: `${session}`,
       doc: `${routeName}`,
       subcollections: [{ collection: "completed" }]
     }
   ];
 };
 
-export const routeCommentQuery = ({ season, routeName }) => {
+export const routeCommentQuery = ({ session, routeName }) => {
   return [
     {
-      collection: `${season}`,
+      collection: `${session}`,
       doc: `${routeName}`,
       subcollections: [{ collection: "comments" }],
       orderBy: ["datePosted", "asc"]
