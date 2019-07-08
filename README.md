@@ -6,3 +6,8 @@ Hi-Line Climbing Center: Bouldering League
 	- Normal members can keep track of their progress, by selectecting a route as complete 
 	- Has overall stats tied to each indidual profiles
 	- Finding a route specifically hard to climb? Check out the comments section on each route to see what each climber 	      has done
+
+** UPDATE 07-02-2019 **
+
+	- Added in achievements, that each climber can unlock
+	- Added in xp leveling system (Route climbed along with unlocking achievements carry certain xp points)
