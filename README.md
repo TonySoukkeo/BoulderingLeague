@@ -13,4 +13,5 @@ Hi-Line Climbing Center: Bouldering League
 	- Added in xp leveling system (Route climbed along with unlocking achievements carry certain xp points)
 	- Added an offline/online mode for certain privelages
 	- Added an admin page, where I can set alerts/welcome messages, along with changing user permissions
-	
+	- Added in a rules page
+	- Added in an attempts counter for each route
