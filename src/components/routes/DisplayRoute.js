@@ -95,11 +95,49 @@ class DisplayRoute extends Component {
                     </Link>
                   </p>
 
-                  <h5 className="route-grade">{route.routeGrade}</h5>
+                  <h5
+                    className={
+                      route.routeGrade === "v0"
+                        ? "v0"
+                        : route.routeGrade === "v1"
+                        ? "v1"
+                        : route.routeGrade === "v2"
+                        ? "v2"
+                        : route.routeGrade === "v3"
+                        ? "v3"
+                        : route.routeGrade === "v4"
+                        ? "v4"
+                        : route.routeGrade === "v5"
+                        ? "v5"
+                        : route.routeGrade === "v6"
+                        ? "v6"
+                        : route.routeGrade === "v7"
+                        ? "v7"
+                        : "special"
+                    }
+                  >
+                    {route.routeGrade === "special" ? "sp" : route.routeGrade}
+                  </h5>
 
-                  <p>{route.description}</p>
+                  <p>
+                    {route.description}{" "}
+                    <span
+                      style={{
+                        float: "right"
+                      }}
+                    >
+                      <img
+                        style={{
+                          height: "150px",
+                          width: "183px"
+                        }}
+                        src={route.location}
+                        alt="Route Location"
+                      />
+                    </span>{" "}
+                  </p>
 
-                  <p style={{ float: "right" }}>
+                  <p>
                     Posted by:{" "}
                     <span className="font-weight-bold">{route.postedBy}</span>
                   </p>
@@ -291,7 +329,12 @@ class DisplayRoute extends Component {
                     </Link>
                   </h3>
                 </div>
-                <div className="card-body">
+                <div
+                  style={{
+                    position: "relative"
+                  }}
+                  className="card-body"
+                >
                   <p style={{ float: "right", fontWeight: "bold" }}>
                     <Link
                       className="have-climbed test"
@@ -303,11 +346,54 @@ class DisplayRoute extends Component {
                     </Link>
                   </p>
 
-                  <h5 className="route-grade">{route.routeGrade}</h5>
+                  <h5
+                    className={
+                      route.routeGrade === "v0"
+                        ? "v0"
+                        : route.routeGrade === "v1"
+                        ? "v1"
+                        : route.routeGrade === "v2"
+                        ? "v2"
+                        : route.routeGrade === "v3"
+                        ? "v3"
+                        : route.routeGrade === "v4"
+                        ? "v4"
+                        : route.routeGrade === "v5"
+                        ? "v5"
+                        : route.routeGrade === "v6"
+                        ? "v6"
+                        : route.routeGrade === "v7"
+                        ? "v7"
+                        : "special"
+                    }
+                  >
+                    {route.routeGrade === "special" ? "sp" : route.routeGrade}
+                  </h5>
 
-                  <p>{route.description}</p>
+                  <p>
+                    {route.description}
+                    <span
+                      style={{
+                        float: "right"
+                      }}
+                    >
+                      <img
+                        style={{
+                          height: "150px",
+                          width: "183px"
+                        }}
+                        src={route.location}
+                        alt="Route Location"
+                      />
+                    </span>{" "}
+                  </p>
 
-                  <p style={{ float: "right" }}>
+                  <p
+                    style={{
+                      position: "absolute",
+                      bottom: "0"
+                    }}
+                  >
                     Posted by:{" "}
                     <span className="font-weight-bold">{route.postedBy}</span>
                   </p>

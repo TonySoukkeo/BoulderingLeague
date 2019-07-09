@@ -23,6 +23,57 @@ body {
   color: #fff !important;
 }
 
+/** Route Grade Styling **/
+
+.v0,
+.v1,
+.v2,
+.v3,
+.v4,
+.v5,
+.v6,
+.v7,
+.special {
+  font-size: 3rem;
+  padding-bottom: 2px;
+}
+
+.v0 {
+  color: #f9a11a;
+}
+
+.v1 {
+  color: #f2ea24;
+}
+
+.v2 {
+  color: #3e5caa;
+}
+
+.v3 {
+  color: #73bf43;
+}
+
+.v4 {
+  color: #8c1927;
+}
+
+.v5 {
+  color: #bf4a9b;
+}
+
+.v6 {
+  color: #eeeee3;
+}
+
+.v7 {
+  color: #151514;
+}
+
+.special {
+  color: #a3cdee;
+}
+
 /** NAVAR STYLING **/
 
 .hamburger-icon {
@@ -249,11 +300,6 @@ body {
 
 .have-climbed {
   color: #6fbf60;
-}
-
-.route-grade {
-  font-size: 3rem;
-  padding-bottom: 2px;
 }
 
 .fa-comments {

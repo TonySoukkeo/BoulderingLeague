@@ -40,6 +40,7 @@ export const addRoute = route => async (
       routeName: route.routeName,
       routeGrade: route.routeGrade,
       description: route.description,
+      location: route.location,
       postedBy: `${user.firstName} ${user.lastName}`,
       session: session,
       datePosted: moment(datePosted).toDate()
@@ -101,6 +102,7 @@ export const updateRoute = (route, name, user, profile) => async (
     updatedRoute = {
       uid: route.uid,
       routeName: route.routeName,
+      location: route.location,
       routeGrade: route.routeGrade,
       description: route.description,
       postedBy: `${user.firstName} ${user.lastName}`,

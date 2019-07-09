@@ -54,12 +54,85 @@ const session = [{ key: "session1", text: "Session 1", value: "session1" }],
       text: "Special",
       value: "special"
     }
+  ],
+  location = [
+    {
+      key: "1",
+      text: "1",
+      value: "/assets/gym_layout/layout-1.png"
+    },
+    {
+      key: "2",
+      text: "2",
+      value: "/assets/gym_layout/layout-2.png"
+    },
+    {
+      key: "3",
+      text: "3",
+      value: "/assets/gym_layout/layout-3.png"
+    },
+    {
+      key: "4",
+      text: "4",
+      value: "/assets/gym_layout/layout-4.png"
+    },
+    {
+      key: "5",
+      text: "5",
+      value: "/assets/gym_layout/layout-5.png"
+    },
+    {
+      key: "6",
+      text: "6",
+      value: "/assets/gym_layout/layout-6.png"
+    },
+    {
+      key: "7",
+      text: "7",
+      value: "/assets/gym_layout/layout-7.png"
+    },
+    {
+      key: "8",
+      text: "8",
+      value: "/assets/gym_layout/layout-8.png"
+    },
+    {
+      key: "9",
+      text: "9",
+      value: "/assets/gym_layout/layout-9.png"
+    },
+    {
+      key: "10",
+      text: "10",
+      value: "/assets/gym_layout/layout-10.png"
+    },
+    {
+      key: "11",
+      text: "11",
+      value: "/assets/gym_layout/layout-11.png"
+    },
+    {
+      key: "12",
+      text: "12",
+      value: "/assets/gym_layout/layout-12.png"
+    },
+    {
+      key: "13",
+      text: "13",
+      value: "/assets/gym_layout/layout-13.png"
+    },
+    {
+      key: "14",
+      text: "14",
+      value: "/assets/gym_layout/layout-14.png"
+    }
   ];
 
 const validate = combineValidators({
   session: isRequired({ message: "Session is required" }),
   routeGrade: isRequired({ message: "Grade needs to be specified" }),
-  routeName: isRequired({ message: "Route name is required" })
+  routeName: isRequired({ message: "Route name is required" }),
+  location: isRequired({ message: "Route Location is required" })
 });
 
 class AdminAddRoute extends Component {
@@ -94,6 +167,30 @@ class AdminAddRoute extends Component {
                 component={TextInput}
                 type="text"
                 placeholder="Route Name"
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <div className="text-center">
+                <img
+                  style={{
+                    height: "209px",
+                    width: "296px"
+                  }}
+                  src="/assets/gym_layout/gym-layout.png"
+                  alt="gym layout"
+                />
+              </div>
+
+              <br />
+              <label htmlFor="location">Route Location</label>
+
+              <Field
+                name="location"
+                type="number"
+                component={SelectInput}
+                options={location}
+                multiple={false}
                 className="form-control"
               />
             </div>
