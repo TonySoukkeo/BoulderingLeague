@@ -110,8 +110,6 @@ export const updateRoute = (route, name, user, profile) => async (
       datePosted: posted
     };
 
-  console.log(updatedRoute);
-
   try {
     // Update Route
     await firestore.update(`${route.session}/${route.routeName}`, route);
@@ -218,7 +216,7 @@ export const completedRoute = (auth, route, user) => async (
     }
 
     if (user.session && user.session[session]) {
-      sessionTotal = user.session[session] += 2;
+      sessionTotal = user.session[session] += 12;
 
       firestore.set(
         `users/${auth.uid}`,
@@ -231,7 +229,7 @@ export const completedRoute = (auth, route, user) => async (
       );
     } else {
       // Add one point to session total
-      sessionTotal += 2;
+      sessionTotal += 12;
 
       // Add point to session total
       firestore.set(
@@ -251,7 +249,7 @@ export const completedRoute = (auth, route, user) => async (
       firestore.set(
         `users/${auth.uid}`,
         {
-          overallTotal: (overallTotal += 2)
+          overallTotal: (overallTotal += 12)
         },
         { merge: true }
       );
@@ -259,7 +257,7 @@ export const completedRoute = (auth, route, user) => async (
       firestore.set(
         `users/${auth.uid}`,
         {
-          overallTotal: (overallTotal += 2)
+          overallTotal: (overallTotal += 12)
         },
         { merge: true }
       );
@@ -390,7 +388,7 @@ export const completedRoute = (auth, route, user) => async (
     }
 
     if (user.session && user.session[session]) {
-      sessionTotal = user.session[session] += 1;
+      sessionTotal = user.session[session] += 10;
 
       firestore.set(
         `users/${auth.uid}`,
@@ -403,7 +401,7 @@ export const completedRoute = (auth, route, user) => async (
       );
     } else {
       // Add one point to session total
-      sessionTotal += 1;
+      sessionTotal += 10;
 
       // Add point to session total
       firestore.set(
@@ -423,7 +421,7 @@ export const completedRoute = (auth, route, user) => async (
       firestore.set(
         `users/${auth.uid}`,
         {
-          overallTotal: (overallTotal += 1)
+          overallTotal: (overallTotal += 10)
         },
         { merge: true }
       );
@@ -431,7 +429,7 @@ export const completedRoute = (auth, route, user) => async (
       firestore.set(
         `users/${auth.uid}`,
         {
-          overallTotal: (overallTotal += 1)
+          overallTotal: (overallTotal += 10)
         },
         { merge: true }
       );
@@ -570,9 +568,9 @@ export const notComplete = (auth, route, user) => async (
         `users/${auth.uid}`,
         {
           session: {
-            [session]: (sessionTotal -= 2)
+            [session]: (sessionTotal -= 12)
           },
-          overallTotal: (overallTotal -= 2)
+          overallTotal: (overallTotal -= 12)
         },
         { merge: true }
       );
@@ -652,9 +650,9 @@ export const notComplete = (auth, route, user) => async (
         `users/${auth.uid}`,
         {
           session: {
-            [session]: (sessionTotal -= 1)
+            [session]: (sessionTotal -= 10)
           },
-          overallTotal: (overallTotal -= 1)
+          overallTotal: (overallTotal -= 10)
         },
         { merge: true }
       );

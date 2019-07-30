@@ -98,6 +98,15 @@ export const getAchievements = user => async (
       img: "/assets/achievements/pioneer.jpg"
     },
     {
+      name: "Onwards",
+      details: "Participated in session 2",
+      value:
+        user.hasOwnProperty("attempts") &&
+        user.attempts.hasOwnProperty("session2"),
+      xp: 50,
+      img: "/assets/achievements/session2.png"
+    },
+    {
       name: "Just warming up",
       details: "Have over 10 attempts in total",
       value: overallAttempts > 10,
@@ -323,6 +332,15 @@ export const removeAchievementXp = user => async (
         user.attempts.hasOwnProperty("session1"),
       xp: 50,
       img: "/assets/achievements/pioneer.jpg"
+    },
+    {
+      name: "Onwards",
+      details: "Participated in session 2",
+      value:
+        user.hasOwnProperty("attempts") &&
+        user.attempts.hasOwnProperty("session2"),
+      xp: 50,
+      img: "/assets/achievements/session2.png"
     },
     {
       name: "Just warming up",

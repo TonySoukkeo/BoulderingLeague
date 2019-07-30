@@ -7,7 +7,7 @@ import TextArea from "../../../common/form/TextArea";
 import TextInput from "../../../common/form/TextInput";
 import SelectInput from "../../../common/form/SelectInput";
 
-const session = [{ key: "session1", text: "Session 1", value: "session1" }],
+const session = [{ key: "session2", text: "Session 2", value: "session2" }],
   grade = [
     {
       key: "v0",

@@ -1,7 +1,7 @@
 /*
   Change view for each session
   * change firestore connect collection session on Tracker
-  * change session on getRoutesForTracker, from TrackerActions || Change session on routes, in mapStateToProps
+  * change session on getRoutesForTracker, from TrackerActions |* Change session on routes, in mapStateToProps
   * change sessionTotalValue from state to the corresponding session On Leaderboard.js
   * Change currentSession on state for Tracker, for Active session toggle for live view
   * For Each new session, go into Admin Add routes, and change the option from previous session to the next session
@@ -26,7 +26,7 @@ class Tracker extends Component {
     showAddRoutes: false,
     moreRoutes: false,
     age: "",
-    currentSession: "session1"
+    currentSession: "session2"
   };
 
   async componentWillReceiveProps(nextProps) {
@@ -164,7 +164,7 @@ const mapState = state => ({
   profile: state.firebase.profile,
   auth: state.firebase.auth,
   session: state.session,
-  routes: state.firestore.ordered.session1 // Change session for routes display view
+  routes: state.firestore.ordered.session2 // Change session for routes display view
 });
 
 const actions = {
@@ -174,7 +174,7 @@ const actions = {
 };
 
 export default compose(
-  firestoreConnect([{ collection: "session1" }]), // change session for routes display view
+  firestoreConnect([{ collection: "session2" }]), // change session for routes display view
   connect(
     mapState,
     actions

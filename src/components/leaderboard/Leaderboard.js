@@ -10,7 +10,7 @@ import Spinner2 from "../../common/helpers/Spinner2";
 
 class Leaderboard extends Component {
   state = {
-    sessionTotalValue: "session1Total"
+    sessionTotalValue: "session2Total"
   };
 
   getYouth = users => {
@@ -38,6 +38,28 @@ class Leaderboard extends Component {
         return sessionTotal;
       }
     }
+  };
+
+  getOverall = users => {
+    const { sessionTotalValue } = this.state;
+    const hasSession = users.filter(x => x.session);
+    let sessionTotal, allUsers;
+    const current = users.filter(x => x.session);
+
+    if (current.length !== 0) {
+      // Filter out users with session totals
+      allUsers = hasSession.filter(x => x.session[sessionTotalValue]);
+      // Sort users from high to low
+      sessionTotal = allUsers.sort(
+        (a, b) => b.session[sessionTotalValue] - a.session[sessionTotalValue]
+      );
+    }
+
+    if (sessionTotal.length > 3) {
+      let topThree;
+      topThree = sessionTotal.slice(0, 3);
+      return topThree;
+    } else return sessionTotal;
   };
 
   getAdult = users => {
@@ -74,7 +96,10 @@ class Leaderboard extends Component {
     if (users) {
       return (
         <div className="sticky-top">
-          <AllDivision sessionTotalValue={sessionTotalValue} />
+          <AllDivision
+            users={this.getOverall(users)}
+            sessionTotalValue={sessionTotalValue}
+          />
           <AdultDivision
             users={this.getAdult(users)}
             sessionTotalValue={sessionTotalValue}

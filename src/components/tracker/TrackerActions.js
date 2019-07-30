@@ -4,7 +4,7 @@ import firebase from "../../config/firebase";
 export const getRoutesForTracker = lastRoute => async (dispatch, getState) => {
   let today = new Date(Date.now());
   const firestore = firebase.firestore(),
-    routesRef = firestore.collection(`session1`); // Change this value for each session view change
+    routesRef = firestore.collection(`session2`); // Change this value for each session view change
 
   try {
     let startAfter =

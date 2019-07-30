@@ -83,7 +83,12 @@ class DisplayRoute extends Component {
                     </Link>
                   </h3>
                 </div>
-                <div className="card-body">
+                <div
+                  style={{
+                    position: "relative"
+                  }}
+                  className="card-body"
+                >
                   <p style={{ float: "right", fontWeight: "bold" }}>
                     <Link
                       className="have-climbed test"
@@ -137,7 +142,7 @@ class DisplayRoute extends Component {
                     </span>{" "}
                   </p>
 
-                  <p>
+                  <p style={{ position: "absolute", bottom: "0" }}>
                     Posted by:{" "}
                     <span className="font-weight-bold">{route.postedBy}</span>
                   </p>
