@@ -18,3 +18,7 @@
 
 ## UPDATE 07-29-2019
 	- Achievement added in for session 2
+	
+## UPDATED 10-26-2019
+	- UI / UX redisign
+	- Users are able to set and change profile banner image
