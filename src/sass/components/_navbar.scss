@@ -1,0 +1,332 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+
+  @include respond(med) {
+    position: initial;
+    height: 100%;
+    background: $color-blue-dark;
+  }
+
+  &__signedout {
+    @include respond(med) {
+      position: relative;
+      padding: 1rem;
+      display: flex;
+      height: 100%;
+    }
+
+    &-rules {
+      display: none;
+      position: absolute;
+
+      @include respond(med) {
+        display: block;
+        color: $color-light;
+        align-self: center;
+        bottom: 0;
+        margin-bottom: 2rem;
+        transition: all 0.3s;
+
+        &:hover {
+          color: $color-green-light;
+        }
+      }
+    }
+
+    &-logo {
+      display: none;
+      text-align: center;
+      margin-bottom: 30%;
+
+      @include respond(med) {
+        display: block;
+      }
+
+      img {
+        width: 90%;
+      }
+    }
+  }
+
+  &__name {
+    display: none;
+
+    @include respond(med) {
+      display: block;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  &__rank {
+    display: none;
+    margin-top: 2rem;
+    position: relative;
+    border: 2px solid $color-green-light;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+
+    @include respond(med) {
+      display: block;
+    }
+
+    &-content {
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+    }
+
+    &-title {
+      font-size: 1rem;
+    }
+  }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $color-blue-dark;
+    color: white;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+
+    @include respond(med) {
+      padding: 1rem;
+      grid-column: sidebar-start / sidebar-end;
+      display: flex;
+      flex-direction: column;
+      justify-content: initial;
+      background: $color-blue-dark;
+      height: 100%;
+      width: 100%;
+    }
+
+    &-nav {
+      height: 100vh;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+      @include respond(med) {
+        position: relative;
+        top: 5%;
+        opacity: 1;
+        visibility: visible;
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    &-list {
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      list-style-type: none;
+      text-align: center;
+
+      @include respond(med) {
+        height: 100%;
+        padding-top: 5rem;
+      }
+    }
+
+    &-link {
+      &:link,
+      &:visited {
+        display: inline-block;
+        font-size: 2rem;
+        font-weight: 300;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: $color-dark;
+
+        @include respond(med) {
+          font-size: 1.2rem;
+          padding: 0.4rem 2rem;
+          color: $color-light;
+          transition: color 0.3s;
+
+          &:hover {
+            color: $color-green-light;
+          }
+        }
+      }
+    }
+  }
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__profile {
+    display: block;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: auto;
+    overflow: hidden;
+    z-index: 2000;
+
+    @include respond(med) {
+      cursor: initial;
+      margin-top: 2rem;
+      width: 7rem;
+      height: 7rem;
+    }
+  }
+
+  &__background {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2rem;
+    width: 2rem;
+    border-radius: 100px;
+    background-image: linear-gradient(
+      to right,
+      $color-green-light,
+      $color-green-med
+    );
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    z-index: 1000;
+
+    @include respond(med) {
+      display: none;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__level {
+    display: flex;
+    align-items: center;
+
+    @include respond(med) {
+      align-items: initial;
+    }
+
+    &-img {
+      width: 13%;
+    }
+
+    &-amount {
+      margin-left: 1rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__icon {
+    margin-right: 0.4rem;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+
+    @include respond(med) {
+      flex-direction: column;
+      position: initial;
+    }
+  }
+
+  &__item {
+    width: 50%;
+    text-align: center;
+    padding: 0.4rem 0;
+
+    @include respond(med) {
+      width: 100%;
+      border-radius: 1rem;
+      margin-top: 1rem;
+      margin-right: 1rem;
+    }
+  }
+
+  &__login,
+  &__register {
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  &__login {
+    background: $color-green-dark;
+
+    @include respond(med) {
+      background: rgba($color-green-light, 0.5);
+    }
+
+    a {
+      color: $color-light;
+    }
+
+    // HOVER STYLING
+    &:hover {
+      background: rgba($color-green-light, 0.7);
+      box-shadow: $box-shadow-light;
+      transform: scale(1.02);
+    }
+  }
+
+  &__register {
+    background: $color-yellow-light;
+
+    @include respond(med) {
+      background: rgba($color-yellow-light, 0.5);
+    }
+
+    a {
+      color: $color-dark;
+
+      @include respond(med) {
+        color: $color-light;
+      }
+    }
+
+    // HOVER STYLING
+    &:hover {
+      background: rgba($color-yellow-light, 0.7);
+      box-shadow: $box-shadow-light;
+      transform: scale(1.02);
+    }
+  }
+
+  &__link,
+  &__link:active,
+  &__link:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  // Functionality
+  &__checkbox:checked ~ &__button &__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked ~ &__main-nav {
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+  }
+}

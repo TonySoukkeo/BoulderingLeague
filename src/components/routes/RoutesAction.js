@@ -62,7 +62,6 @@ export const addRoute = route => async (
     //reload page
     window.location.reload();
   } catch (error) {
-    console.log(error);
     toastr.error("Oops", "Error posting route");
   }
 };
@@ -86,29 +85,17 @@ export const deleteRoute = route => async (
     // RELOAD PAGE
     window.location.reload();
   } catch (error) {
-    console.log(error);
     toastr.error("Oops", "Error in deleting route");
   }
 };
 
 // Update Route
-export const updateRoute = (route, name, user, profile) => async (
+export const updateRoute = route => async (
   getState,
   dispatch,
   { getFirestore }
 ) => {
-  const firestore = getFirestore(),
-    posted = Date.now(),
-    updatedRoute = {
-      uid: route.uid,
-      routeName: route.routeName,
-      location: route.location,
-      routeGrade: route.routeGrade,
-      description: route.description,
-      postedBy: `${user.firstName} ${user.lastName}`,
-      session: route.session,
-      datePosted: posted
-    };
+  const firestore = getFirestore();
 
   try {
     // Update Route
@@ -116,7 +103,6 @@ export const updateRoute = (route, name, user, profile) => async (
 
     toastr.success("Success", "Route updated");
   } catch (error) {
-    console.log(error);
     toastr.error("Oops", "Could not update route");
   }
 };
@@ -195,7 +181,6 @@ export const completedRoute = (auth, route, user) => async (
       user.experiencePoints !== 0
     ) {
       let xpPoints = user.experiencePoints;
-      console.log(route);
       firestore.set(
         `users/${auth.uid}`,
         {
@@ -309,7 +294,6 @@ export const completedRoute = (auth, route, user) => async (
         }
       );
     } catch (error) {
-      console.log(error);
       toastr.error("Oops", "Something went wrong");
     }
   } else {
@@ -580,7 +564,6 @@ export const notComplete = (auth, route, user) => async (
       });
       toastr.success("Success", "Route unmarked");
     } catch (error) {
-      console.log(error);
       toastr.error("Oops", "Something went wrong");
     }
   } else {
@@ -591,7 +574,6 @@ export const notComplete = (auth, route, user) => async (
         doc: route.routeName,
         subcollections: [{ collection: "completed", doc: `${auth.uid}` }]
       };
-      console.log(session);
       firestore.delete(routeSubCollection);
 
       const subCollection = {
@@ -662,14 +644,13 @@ export const notComplete = (auth, route, user) => async (
       });
       toastr.success("Success", "Route unmarked");
     } catch (error) {
-      console.log(error);
       toastr.error("Oops", "Something went wrong");
     }
   }
 };
 
 /* ATTEMPTS COUNTER ADD */
-export const attemptCounterAdd = (auth, route, user) => async (
+export const attemptCounterAdd = (auth, route, user) => (
   getState,
   dispatch,
   { getFirestore, getFirebase }
@@ -757,7 +738,7 @@ export const attemptCounterAdd = (auth, route, user) => async (
 
 /* ATTEMPTS COUNTER MINUS */
 
-export const attemptCounterMinus = (auth, route, user) => async (
+export const attemptCounterMinus = (auth, route, user) => (
   getState,
   dispatch,
   { getFirestore, getFirebase }

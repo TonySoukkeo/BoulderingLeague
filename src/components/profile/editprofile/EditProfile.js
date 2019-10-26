@@ -7,57 +7,54 @@ import TextArea from "../../../common/form/TextArea";
 
 const EditProfile = ({ handleSubmit, updateProfile, pristine, submitting }) => {
   return (
-    <div className="card mb-5">
-      <div className="card-header">
-        <h3>My Profile</h3>
-      </div>
-      <div className="card-body">
-        <form onSubmit={handleSubmit(updateProfile)}>
-          <div className="form-group">
-            <label style={{ fontWeight: "bold" }} htmlFor="firstName">
-              First Name
-            </label>
-            <Field
-              name="firstName"
-              component={TextInput}
-              type="text"
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ fontWeight: "bold" }} htmlFor="firstName">
-              Last Name
-            </label>
-            <Field
-              name="lastName"
-              component={TextInput}
-              type="text"
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ fontWeight: "bold" }} htmlFor="firstName">
-              About Yourself
-            </label>
-            <Field
-              name="about"
-              type="text"
-              component={TextArea}
-              rows={6}
-              className="form-control"
-            />
-          </div>
-          <hr />
-          <button
-            disabled={pristine || submitting}
-            style={{ float: "right" }}
-            className="btn btn-success"
-          >
-            Save changes
-          </button>
-        </form>
-      </div>
-    </div>
+    <React.Fragment>
+      <form
+        className="profile__edit-form"
+        onSubmit={handleSubmit(updateProfile)}
+      >
+        <div className="form-group">
+          <label className="form__label" htmlFor="firstName">
+            First Name
+          </label>
+          <Field
+            name="firstName"
+            component={TextInput}
+            type="text"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="firstName">
+            Last Name
+          </label>
+          <Field
+            name="lastName"
+            component={TextInput}
+            type="text"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="firstName">
+            About
+          </label>
+          <Field
+            name="about"
+            type="text"
+            component={TextArea}
+            rows={6}
+            className="form-control"
+          />
+        </div>
+
+        <button
+          disabled={pristine || submitting}
+          className="btn profile__edit-form--btn"
+        >
+          Save changes
+        </button>
+      </form>
+    </React.Fragment>
   );
 };
 

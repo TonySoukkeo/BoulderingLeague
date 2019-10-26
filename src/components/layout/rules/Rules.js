@@ -1,28 +1,65 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Rules = () => {
-  return (
-    <div id="rules" className="container ">
-      <h1>Rules</h1>
-      <div id="rules-header">
-        <div className="rules-box1" />
-        <div className="rules-box2" />
-      </div>
-      <div className="card">
-        <div className="card-body">
+class Rules extends Component {
+  onClickBack = () => {
+    const { history } = this.props;
+
+    history.push("/tracker");
+  };
+
+  render() {
+    return (
+      <div className="rules">
+        <button onClick={this.onClickBack} className="route-comments__btn">
+          <i className="fas fa-arrow-circle-left" /> Back
+        </button>
+        <div className="rules__author">
+          <img
+            className="rules__author-img"
+            src="/assets/luke_ferda.jpg"
+            alt="Luke Ferda profile picture"
+          />
+          <div className="rules__author-text">
+            Written by <span className="text-bold">Luke Ferda</span> | Executive
+            writer
+          </div>
+        </div>
+
+        <div className="rules__header">
+          <div className="rules__header-hr"></div>
+          <div className="rules__header-title">Rules</div>
+
           <p>
-            {" "}
             We use a red point styling system to keep track of your score. Every
-            route is worth one point, regardlesss of their grade. This is an
-            honor based system, meaning that when you click 'complete' on a
-            route, means that you have successfully climbed the route.
+            route is worth one point, regardless of their grade. This is an
+            honor-based system, meaning that when you click "complete", you are
+            claiming to have successfully climbed the route.
           </p>
+          <br />
+          <p>
+            Before being able to mark a route as complete, you will need to show
+            how many attempts it took to complete the route, as you will be
+            awarded 12 points for a first attempt and 10 points for anything
+            more.
+          </p>
+          <br />
+          <p>
+            You may find some routes in the league that you successfully climbed
+            in the past. In that given case, the first time you climb the route
+            from the start of the session will be considered the first attempt,
+            regardless of how many times you may have climbed it before the
+            session started.
+          </p>
+        </div>
 
+        <div className="rules__getting-started">
           <p>
             Before being able to mark a route as complete, you will need to show
             how many attempts it took to complete the route, as you will be
             awarded 2 points for a first attempt, and 1 point for anything more.
           </p>
+
+          <br />
 
           <p>
             You may find some routes on the league that you have climbed before.
@@ -31,116 +68,125 @@ const Rules = () => {
             regardless of how ever many times you have climbed it before the
             session start.
           </p>
+        </div>
 
-          <br />
-          <br />
-
-          <h2>So what counts as a sucessfull climb?</h2>
-          <ul>
-            <li>
-              Starting the route with both feet off the mat, in a controlled
+        <div className="rules__content">
+          <h2>What counts as a successfull climb?</h2>
+          <ul className="rules__list">
+            <li className="rules__list-item">
+              Start the route with both feet off the mat and in a controlled
               manner.
             </li>
-
-            <li>
-              No dabbing (feet and/or hands doesn't touch any other route
-              holds/foothold)
+            <li className="rules__list-item">
+              Once your body leaves the mat, your first attempt has started.
             </li>
-            <li>
-              Once your body leaves the mat, that counts as a route attempt. And
-              if any part of you touches the mat, it's considered a dab.
+            <li className="rules__list-item">
+              No "dabbing" (feet and/or hands cannot touch any other route
+              holds/foothold). If any part of you touches the mat after starting
+              your attempt, it's considered a "dab". Thus counting as a failed
+              attempt.
             </li>
-            <li>Both hands on the end hold for a minimum of 3 seconds.</li>
+            <li className="rules__list-item">
+              Both hands must stay on the finish hold for a minimum of 3
+              seconds.
+            </li>
           </ul>
-          <br />
-          <br />
-          <h2>What's a session?</h2>
+
+          <h2>What's a "session"?</h2>
           <p>
-            You can think of it kind of like an episode, or a season to a tv
-            series. Each session lasts for 2 weeks, and 2 weeks
-            intermission,then the routes will get reset, and new ones will
-            become available on here, via the next session start.{" "}
+            You can think of it like a season to a TV series. Just as a TV
+            series lasts for a period of time and is followed by a waiting
+            period, each session lasts for 2 weeks, followed by 2 weeks of
+            intermission. After the intermission the routes will get reset, and
+            new league routes will become available here on the web app,
+            signifying the start of a new session.
+          </p>
+          <br />
+          <p>
+            With each session comes 2 routes per grade (level of difficulty).
+            For example, there will be 2 v0 routes, 2 v1 routes, so on and so
+            forth.
           </p>
 
-          <p>
-            With each session, comes 2 routes per grade. For example, there will
-            be 2 v0 routes, 2 v1 routes, so on and so forth.
-          </p>
-          <br />
           <br />
           <h2>What happens at the end of each session?</h2>
           <p>
-            The climber with the most amount of points in the current session,
-            will receive a special prize. At the end of session, there will be a
-            2 week gap, before the next session starts.
-          </p>
-          <br />
-          <br />
-          <h2>What are achievements?</h2>
-          <p>
-            Achievements are unlocked, by fullfilling a certain requirement. For
-            example, having completed your very first v1, will unlock an
-            achievement. Of course there are more achievements than just that
-            one! But the rest are kept a secret, you would just have to keep
-            climbing if you want to unlock more!
-          </p>
-          <br />
-          <br />
-          <h2>XP?</h2>
-          <p>
-            You're experience points that you gain for your personal level is
-            kept separate from the overall leaderboards, and have no association
-            with how you are placed or ranked.
+            The climber with the most points in the current session will receive
+            a special prize.
           </p>
 
+          <br />
+
+          <h2>What are achievements?</h2>
           <p>
-            You can gain experience points from completing routes, along with
-            unlocking achievements. Below is where you can find how much
-            experience points each route grade give:
+            Achievements are unlocked by fulfilling a certain requirement. For
+            example, completing your very first v1 will unlock an achievement.
+            There are more achievements than just that one; however, they are
+            kept a secret. You will just have to keep climbing if you want to
+            unlock more!
           </p>
-          <ul className="rules-xp-list">
+
+          <br />
+
+          <h2>XP (experience points)?</h2>
+          <p>
+            Your experience points (that you gain for your personal level) are
+            kept separate from the overall leaderboards and have no association
+            with how you are placed, ranked, or compared to other climbers.
+          </p>
+
+          <br />
+
+          <p>
+            You can gain experience points from completing routes and unlocking
+            achievements. Below you can find how many experience points each
+            route grade gives:
+          </p>
+        </div>
+
+        <div className="rules__xp">
+          <ul className="rules__list--xp">
             <li>
-              <span className="rules-xp-grade">v0</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" />
-              10xp
+              <span>v0</span>
+              <span>10xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v1</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 20xp
+              <span>v1</span>
+              <span>20xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v2</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 45xp
+              <span>v2</span>
+              <span>45xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v3</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 90xp
+              <span>v3</span>
+              <span>90xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v4</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 180xp
+              <span>v4</span>
+              <span>180xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v5</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 350xp
+              <span>v5</span>
+              <span>350xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v6</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 625xp
+              <span>v6</span>
+              <span>625xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">v7</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 800xp
+              <span>v7</span>
+              <span>800xp</span>
             </li>
             <li>
-              <span className="rules-xp-grade">Special</span>
-              <i className="fas fa-long-arrow-alt-right arrow-right" /> 900xp
+              <span>Special</span>
+              <span>900xp</span>
             </li>
           </ul>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Rules;

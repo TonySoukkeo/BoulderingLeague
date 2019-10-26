@@ -172,81 +172,89 @@ class RouteField extends Component {
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <div className="card">
-        <div className="card-header">
+      <div className="edit-route__container">
+        <button onClick={this.onClickBack} className="route-comments__btn">
+          <i className="fas fa-arrow-circle-left" /> Back
+        </button>
+
+        <div className="edit-route__header">
           <h3>Edit Route</h3>
         </div>
-        <div className="card-body">
-          <form onSubmit={handleSubmit(this.onClickUpdate)}>
-            <div className="form-group">
-              <label htmlFor="Route Name">Route Name</label>
-              <Field
-                disabled={true}
-                name="routeName"
-                component={TextInput}
-                type="text"
-                placeholder="Route Name"
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="Route Location">Route Location</label>
-              <div className="text-center">
-                <img
-                  style={{
-                    height: "209px",
-                    width: "296px"
-                  }}
-                  src="/assets/gym_layout/gym-layout.png"
-                  alt="gym layout"
-                />
-              </div>
 
-              <Field
-                name="location"
-                component={SelectInput}
-                options={location}
-                type="number"
-                multiple={false}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="Route Grade">Route Grade</label>
+        <form
+          className="edit-route__form"
+          onSubmit={handleSubmit(this.onClickUpdate)}
+        >
+          <div className="form__group">
+            <label className="form__label" htmlFor="Route Name">
+              Route Name
+            </label>
 
-              <Field
-                name="routeGrade"
-                component={SelectInput}
-                options={grade}
-                type="text"
-                multiple={false}
-                className="form-control"
-              />
-            </div>
+            <Field
+              disabled={true}
+              name="routeName"
+              component={TextInput}
+              type="text"
+              placeholder="Route Name"
+            />
+          </div>
+
+          <div className="form__group">
+            <label className="form__label" htmlFor="Route Location">
+              Route Location
+            </label>
+
+            <img
+              className="edit-route__img-layout"
+              src="/assets/gym_layout/gym-layout.png"
+              alt="gym layout"
+            />
+
+            <Field
+              name="location"
+              component={SelectInput}
+              options={location}
+              type="number"
+              multiple={false}
+            />
+          </div>
+
+          <div className="form__group">
+            <label className="form__label" htmlFor="Route Grade">
+              Route Grade
+            </label>
+
+            <Field
+              name="routeGrade"
+              component={SelectInput}
+              options={grade}
+              type="text"
+              multiple={false}
+            />
+          </div>
+
+          <div className="form__group">
+            <label htmlFor="description" className="form__label">
+              Description
+            </label>
+
             <Field
               name="description"
               component={TextArea}
               type="text"
               placeholder="Description"
               rows={7}
-              className="form-control"
             />
-            <button
-              type="submit"
-              disabled={pristine || submitting}
-              className="btn btn-success mr-2"
-            >
-              Update
-            </button>
-            <button
-              onClick={this.onClickBack}
-              type="button"
-              className="btn btn-danger"
-            >
-              Back
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={pristine || submitting}
+            className="btn edit-route--btn"
+          >
+            Update
+          </button>
+        </form>
       </div>
     );
   }

@@ -69,6 +69,7 @@ class Routes extends Component {
 
   routeAttemptsAdd = (auth, route, user) => {
     const { attemptCounterAdd, getAchievements } = this.props;
+
     attemptCounterAdd(auth, route, user);
 
     setTimeout(() => {
@@ -78,6 +79,7 @@ class Routes extends Component {
 
   routeAttemptsMinus = (auth, route, user) => {
     const { attemptCounterMinus, removeAchievementXp } = this.props;
+
     attemptCounterMinus(auth, route, user);
 
     setTimeout(() => {
@@ -86,19 +88,12 @@ class Routes extends Component {
   };
 
   render() {
-    const {
-        auth,
-        user,
-        getNextRoutes,
-        moreRoutes,
-        routes,
-        currentSession
-      } = this.props,
+    const { auth, user, routes, currentSession, addRoutes } = this.props,
       { currentUser } = this.state;
 
     if (currentUser) {
       return (
-        <div>
+        <div className={!addRoutes ? " tracker-box" : ""}>
           {routes && routes.length !== 0 && (
             <DisplayRoute
               currentSession={currentSession}
@@ -116,7 +111,7 @@ class Routes extends Component {
         </div>
       );
     } else {
-      return <div>Loadin</div>;
+      return <div>Loading</div>;
     }
   }
 }

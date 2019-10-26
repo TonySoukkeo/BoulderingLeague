@@ -14,100 +14,98 @@ const CommentForm = ({
   onClickDeleteComment
 }) => {
   return (
-    <form onSubmit={handleSubmit(addComment)}>
-      <div className="card fixed-bottom">
-        <div className="input-group">
-          <Field
-            name="comment"
-            type="text"
-            placeholder="Enter comment"
-            component={CommentInput}
-          />
-          <div className="input-group-append">
-            <button className="btn btn-completed" type="submit">
-              Submit
-            </button>
-          </div>
-        </div>
+    <form onSubmit={handleSubmit(addComment)} className="route-comments__form">
+      <div className="route-comments__form-header">
+        <h3>{routeName}</h3>
       </div>
-      <div className="card mb-5">
-        <div className="card-header text-center">
-          <h3>
-            {session}: {routeName} comments
-          </h3>
-        </div>
-        <ul className="list-group">
-          {comments &&
-            comments.map(comment => (
+
+      <ul className="route-comments__form-list">
+        {comments && comments.length !== 0 ? (
+          <React.Fragment>
+            {comments.map(comment => (
               <li
+                className="route-comments__form-item"
                 key={comment.commentUid}
-                className="list-group-item leaderboard"
               >
-                <h5>
+                <div className="route-comments__form-detail">
+                  {/*** PROFILE IMAGE ***/}
                   <Link to={`/${comment.profileUid}`}>
                     {comment.photoUrl && (
                       <img
-                        style={{
-                          width: "45px",
-                          marginRight: "10px",
-                          borderRadius: "50%"
-                        }}
+                        className="route-comments__form-profile-img"
                         src={comment.photoUrl}
                         alt="profile"
                       />
                     )}{" "}
-                    <span className="leaderboard-names">
-                      {comment.firstName} {comment.lastName}
-                    </span>
                   </Link>
+
+                  {/*** PROFILE NAME ***/}
+                  <Link
+                    to={`/${comment.profileUid}`}
+                    className="route-comments__form-name"
+                  >
+                    {comment.firstName} {comment.lastName}
+                  </Link>
+
                   {comment.permission === "admin" && (
-                    <span style={{ marginLeft: "20px", color: "green" }}>
+                    <span>
                       <i className="fab fa-react fa-1x" /> Admin
                     </span>
                   )}
+                </div>
+                <div className="route-comments__form-comment">
+                  {comment.comment}
 
-                  <span
-                    style={{
-                      fontSize: ".9rem",
-                      float: "right",
-                      color: "black",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {format(comment.datePosted, "MMM D YYYY")}{" "}
-                    <span style={{ color: "green", marginLeft: "15px" }}>
+                  <div className="route-comments__form-timestamp">
+                    <div className="route-comments__form-timestamp--date">
+                      {format(comment.datePosted, "MMM D YYYY")}{" "}
+                    </div>
+
+                    <div className="route-comments__form-timestamp--time">
                       {format(comment.datePosted, "h:mm")}{" "}
                       {format(comment.datePosted, "aa")}
-                    </span>
-                  </span>
-                </h5>
-                <div
-                  style={{
-                    marginTop: "30px",
-                    marginBottom: "10px",
-                    padding: "20px",
-                    backgroundColor: "rgba(135, 206, 250, .2)"
-                  }}
-                >
-                  <span className="comment-text"> {comment.comment}</span>
+                    </div>
+                  </div>
+
+                  {profile.uid === comment.profileUid ||
+                  profile.permission === "admin" ||
+                  profile.permission === "router setter" ? (
+                    <button
+                      onClick={() =>
+                        onClickDeleteComment(comment, session, routeName)
+                      }
+                      type="button"
+                      className="btn route-comments__form-delete"
+                    >
+                      Delete
+                    </button>
+                  ) : null}
                 </div>
-                {profile.uid === comment.profileUid ||
-                profile.permission === "admin" ||
-                profile.permission === "router setter" ? (
-                  <button
-                    onClick={() =>
-                      onClickDeleteComment(comment, session, routeName)
-                    }
-                    type="button"
-                    style={{ float: "right" }}
-                    className="btn btn-outline-danger"
-                  >
-                    Delete
-                  </button>
-                ) : null}
               </li>
             ))}
-        </ul>
+          </React.Fragment>
+        ) : (
+          <div className="route-comments__na">
+            <div className="route-comments__na-text">
+              Be the first to comment
+            </div>
+          </div>
+        )}
+      </ul>
+
+      {/*** ROUTE COMMENT INPUT ***/}
+
+      <div className="route-comments__form-input-group">
+        <Field
+          name="comment"
+          type="text"
+          placeholder="Enter comment"
+          component={CommentInput}
+        />
+
+        <button className="btn route-comments__btn" type="submit">
+          Post
+        </button>
       </div>
     </form>
   );

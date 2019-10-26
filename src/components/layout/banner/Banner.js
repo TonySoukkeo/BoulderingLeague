@@ -1,26 +1,23 @@
 import React from "react";
-import BannerForm from "./BannerForm";
 
-const Banner = () => {
+const Banner = ({ registerFormModal }) => {
   return (
     <div className="banner">
-      <div className="overlay">
-        <div className="container banner-form-margin text-light">
-          <div className="row">
-            <div className="col-lg-7 banner-text-margin p-5">
-              <h1 style={{ textTransform: "uppercase" }}>Bouldering League!</h1>
-              <p>
-                Welcome, Hi-Line climbers! This app will track and score up all
-                the routes you've climbed for our bouldering league. To get
-                started, just sign up for a free account!
-              </p>
-            </div>
-            <div className="col-lg-5">
-              <BannerForm />
-            </div>
-          </div>
-        </div>
+      <div className="banner__header-block">
+        <h1 className="banner__header-block-lead">Hi Line Climbing Center</h1>
+        <h1 className="header-1 banner__header-block-main">
+          Bouldering League
+        </h1>
       </div>
+
+      <h1 className="header-1 banner__heading-1">join in</h1>
+      <h2 className="header-2 banner__heading-2 mb-med">
+        On the <span className="banner--emphasize">action</span>
+      </h2>
+
+      <button onClick={registerFormModal} className="btn banner__button">
+        Register
+      </button>
     </div>
   );
 };

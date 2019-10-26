@@ -1,0 +1,186 @@
+.route-comments {
+  padding: 5rem 1rem;
+
+  @include respond(med) {
+    grid-column: sidebar-end / full-end;
+    padding: 2rem 1rem;
+  }
+
+  &__btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+    outline: none;
+    border: none;
+    background: none;
+    z-index: 20;
+
+    i {
+      color: $color-orange;
+      margin-right: 0.4rem;
+    }
+  }
+
+  &__form {
+    margin-top: 1.6rem;
+    height: 100%;
+    width: 100%;
+
+    @include respond(med) {
+      margin-top: 0;
+      padding-top: 3rem;
+    }
+
+    &-header {
+      font-size: 1rem;
+      border-left: 3px solid $color-green-med;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    &-detail {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    &-name {
+      text-decoration: none;
+      color: $color-black;
+      margin-right: 1rem;
+      font-size: 1rem;
+    }
+
+    &-list {
+      height: 40vh;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+
+      @include respond(med) {
+        height: 52vh;
+      }
+    }
+
+    &-item {
+      padding-bottom: 2rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &-profile-img {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-right: 1rem;
+      border-radius: 50%;
+    }
+
+    &-comment {
+      position: relative;
+      background: $color-grey;
+      padding: 1rem 1rem 3rem 1rem;
+      border-left: 2px solid $color-green-light;
+      font-size: 1rem;
+
+      @include respond(med) {
+        font-size: 1.3rem;
+        padding: 1rem 1rem 5rem 1rem;
+      }
+    }
+
+    &-timestamp {
+      display: flex;
+      position: absolute;
+      bottom: 0.1rem;
+      right: 1rem;
+      font-size: 0.6rem;
+      font-style: italic;
+
+      @include respond(med) {
+        bottom: 0.8rem;
+      }
+
+      &--date {
+        margin-right: 1rem;
+      }
+    }
+
+    &-delete {
+      position: absolute;
+      bottom: 0.3rem;
+      left: 1rem;
+      text-transform: none;
+      background: rgba($color-red, 0.8);
+      color: $color-light;
+      padding: 0.2rem 1rem;
+      transition: background 0.5s;
+
+      @include respond(med) {
+        bottom: 1rem;
+      }
+
+      &:hover {
+        background: $color-red-med;
+      }
+    }
+
+    &-input-group {
+      position: fixed;
+      bottom: 1rem;
+      width: 100%;
+
+      @include respond(med) {
+        width: 76%;
+      }
+
+      @include respond(large) {
+        width: 80%;
+      }
+
+      @include respond(larger) {
+        width: 90%;
+      }
+
+      button {
+        display: block;
+        margin-top: 1rem;
+        text-transform: none;
+        padding: 0.2rem 1rem;
+        float: right;
+        margin-right: 2.5rem;
+        background: $color-green-light;
+        color: $color-blue-dark;
+
+        @include respond(med) {
+          float: none;
+        }
+      }
+    }
+  }
+
+  // NO COMMENTS STYLING
+  &__na {
+    position: relative;
+    border: 1px solid $color-green-light;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    margin: 3rem auto 0 auto;
+
+    @include respond(med) {
+      width: 15rem;
+      height: 15rem;
+    }
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+      color: $color-blue-dark;
+      width: 90%;
+      text-align: center;
+    }
+  }
+}

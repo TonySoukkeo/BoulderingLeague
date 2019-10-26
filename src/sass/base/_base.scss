@@ -1,0 +1,68 @@
+// Colors
+$color-green-light: #a4ce4e;
+$color-green-med: #86c440;
+$color-green-dark: #67913d;
+
+$color-yellow-light: #e4d32a;
+
+$color-orange: #f47d20;
+
+$color-blue-dark: #252350;
+$color-blue-light: #556bb2;
+$color-blue-xtralight: #728eeb;
+$color-blue-med: #3d4d81;
+
+$color-red: #eb4141;
+$color-red-med: #df3838;
+
+$color-light: #f6f7f7;
+$color-dark: #5d5d5d;
+$color-black: #000;
+$color-grey: #e2e2e2;
+$color-grey-dark: #cccbcb;
+
+// Tracker icon colors
+$tracker-icon: #556bb2;
+$leaderboard-icon: #f47d20;
+
+// Box shadow
+$box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+
+$box-shadow-light: 2px 2px 10px rgba(255, 255, 255, 0.3);
+
+*::before,
+*::after,
+* {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: relative;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  font-size: 62.5%; // 10px
+  line-height: 1.5;
+  background: $color-light;
+
+  @include respond(med) {
+    font-size: 70%;
+  }
+}
+
+.container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100vh;
+
+  @include respond(med) {
+    grid-template-columns:
+      [full-start sidebar-start] 13rem [sidebar-end] minmax(2rem, 1fr)
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end] minmax(2rem, 1fr) [full-end];
+
+    grid-template-rows: auto;
+  }
+}

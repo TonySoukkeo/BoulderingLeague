@@ -1,0 +1,44 @@
+.edit-route {
+  margin-top: 5rem;
+  padding: 1rem;
+
+  @include respond(med) {
+    grid-column: sidebar-end / full-end;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    margin: 0;
+  }
+
+  &__header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    @include respond(large) {
+      font-size: 1rem;
+    }
+  }
+
+  &__img-layout {
+    display: block;
+    width: 50%;
+    margin: 2rem auto 0 auto;
+
+    @include respond(large) {
+      width: 20%;
+    }
+  }
+
+  &--btn {
+    display: block;
+    background: $color-green-light;
+    padding: 0.2rem 1rem;
+    float: right;
+    border: none;
+    outline: none;
+
+    @include respond(large) {
+      font-size: 1rem;
+    }
+  }
+}

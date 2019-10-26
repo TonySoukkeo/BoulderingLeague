@@ -1,0 +1,17 @@
+.dark-overlay {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba($color-black, 0.8);
+  z-index: 50;
+  transition: all 0.2s;
+}
+
+.dark-overlay-active {
+  opacity: 1;
+  visibility: visible;
+}

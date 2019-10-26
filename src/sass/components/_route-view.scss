@@ -1,0 +1,84 @@
+.route-view {
+  background: white;
+  border-radius: 3px;
+  padding: 0;
+  overflow: initial;
+
+  &__photo {
+    width: 13%;
+    border-radius: 50%;
+  }
+
+  &__name {
+    font-size: 0.8rem;
+    margin-left: 1rem;
+  }
+
+  &__division {
+    margin-left: auto;
+  }
+
+  &--icon {
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  &__list {
+    list-style-type: none;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $color-black;
+  }
+
+  &__item {
+    background: $color-light;
+    padding: 1rem;
+    transition: all 0.2s;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-green-light;
+    }
+
+    &:hover {
+      background: $color-blue-dark;
+    }
+  }
+
+  &__item:hover &__link {
+    color: $color-light;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(
+      to right,
+      $color-green-med,
+      $color-green-light
+    );
+    padding: 0.6rem 1rem;
+
+    h1 {
+      text-transform: none;
+    }
+  }
+
+  &__content {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    max-height: 80vh;
+  }
+}
+
+.route-container {
+  @include respond(large) {
+    grid-column: 1 / 9;
+    grid-row: 1;
+    overflow-y: scroll;
+  }
+}

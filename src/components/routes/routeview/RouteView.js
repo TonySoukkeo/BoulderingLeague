@@ -1,82 +1,47 @@
 import React, { Component } from "react";
-import { viewRouteDetailedQuery } from "../routeQuery";
-import { NavLink, Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
+import { Link } from "react-router-dom";
 
 class RouteView extends Component {
   render() {
-    const { session, routeName, route } = this.props;
+    const { routeName, closeModal, completedBy, haveClimbedModal } = this.props;
 
-    if (route && session) {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 mx-auto mt-5">
-              <NavLink to="/tracker" className="back-btn">
-                <i className="fas fa-arrow-circle-left" /> Back to Tracker
-              </NavLink>
-
-              <div className="card mt-3">
-                <div className="card-header text-center">{routeName}</div>
-                <ul className="list-group">
-                  {route.map(user => (
-                    <li key={user.id} className="list-group-item leaderboard">
-                      <Link to={`/${user.id}`}>
-                        <img
-                          style={{
-                            borderRadius: "50%",
-                            width: "3rem",
-                            height: "100%",
-                            marginRight: "4px"
-                          }}
-                          src={user.photoUrl || `/assets/user.png`}
-                          alt=""
-                        />{" "}
-                        {user.firstName} {user.lastName}{" "}
-                      </Link>
-                      <p style={{ float: "right", marginTop: "10px" }}>
-                        <span className="font-weight-bold"> Division: </span>
-                        {user.division}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+    return (
+      <div
+        className={
+          haveClimbedModal
+            ? "route-view popup popup-active"
+            : "route-view popup"
+        }
+      >
+        <div className="route-view__header">
+          <h1 className="header-1">{routeName}</h1>
+          <i onClick={closeModal} className="fas fa-times route-view--icon"></i>
         </div>
-      );
-    } else {
-      return <div>Loading</div>;
-    }
+        <div className="route-view__content">
+          <ul className="route-view__list">
+            {completedBy &&
+              completedBy.map(user => (
+                <li key={user.id} className="route-view__item">
+                  <Link className="route-view__link" to={`/profile/${user.id}`}>
+                    <img
+                      className="route-view__photo"
+                      src={user.photoUrl}
+                    ></img>
+                    <div className="route-view__name">
+                      {user.firstName} {user.lastName}
+                    </div>
+
+                    <div className="route-view__division">
+                      Division: {user.division}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
+    );
   }
 }
 
-const mapState = (state, ownProps) => {
-  let currentSession, currentRoute, route;
-
-  if (state.firebase.auth.uid && state.firestore.ordered) {
-    const id = ownProps.match.params.id,
-      urlTarget = id.split("_"),
-      session = urlTarget[0],
-      routeName = urlTarget[urlTarget.length - 1];
-    currentSession = session;
-    currentRoute = routeName;
-    route = state.firestore.ordered[session];
-  }
-
-  return {
-    session: currentSession,
-    routeName: currentRoute,
-    route
-  };
-};
-
-export default compose(
-  connect(mapState),
-  firestoreConnect((session, routeName) =>
-    viewRouteDetailedQuery(session, routeName)
-  )
-)(RouteView);
+export default RouteView;

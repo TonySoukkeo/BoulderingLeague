@@ -1,15 +1,12 @@
 import React from "react";
-import spinner from "./spinner.gif";
+import loading from "./loading.gif";
 
 const Spinner = () => {
   return (
-    <div>
-      <img
-        style={{ width: "200px", marginTop: "180px", display: "block" }}
-        className="mx-auto"
-        src={spinner}
-        alt="loading"
-      />
+    <div className="spinner">
+      <div className="spinner__container">
+        <img className="spinner__img" src={loading} alt="loading" />
+      </div>
     </div>
   );
 };

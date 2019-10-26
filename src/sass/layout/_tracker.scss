@@ -1,0 +1,164 @@
+.tracker-menu {
+  position: fixed;
+  display: flex;
+  padding: 15rem 5rem 0 5rem;
+  justify-content: space-between;
+  top: -10rem;
+  height: 30rem;
+  width: 100%;
+  transform: scale(1.4);
+  background: $color-green-light;
+  clip-path: ellipse(50% 20% at 50% 50%);
+  box-shadow: $box-shadow;
+  z-index: 2;
+
+  @include respond(med) {
+    display: none;
+  }
+
+  @include respond(small) {
+    padding: 15rem 7rem 0 7rem;
+  }
+
+  &-header {
+    margin-top: 1rem;
+    margin-bottom: -0.3rem;
+  }
+
+  &-position {
+    color: $color-light;
+    font-size: 1.6rem;
+  }
+
+  &__rank {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    text-align: center;
+    border: 4px solid $color-blue-dark;
+  }
+
+  &__tracker {
+    color: $tracker-icon;
+  }
+
+  &__leaderboard {
+    color: $leaderboard-icon;
+  }
+
+  &--icon {
+    font-size: 2rem;
+    color: $color-grey;
+    transition: all 0.3s;
+
+    &-active {
+      transform: scale(1.2);
+      color: $color-orange;
+    }
+  }
+
+  // Sidebar for tablets and up
+  &--lg {
+    display: none;
+    background: $color-blue-dark;
+    padding: 1rem;
+
+    &__xp {
+      background: $color-blue-dark;
+      display: flex;
+      padding: 0.3rem;
+      border-radius: 10rem;
+    }
+
+    &__image {
+      margin: 1.5rem auto;
+      height: 7rem;
+      width: 7rem;
+      border-radius: 50%;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &__name {
+      color: $color-light;
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: 200;
+    }
+
+    &__rank {
+      margin-top: 2rem;
+      font-size: 2.5rem;
+      color: $color-green-light;
+      text-align: center;
+      border-top: 0.3px solid $color-light;
+      border-bottom: 0.3px solid $color-light;
+      padding: 0.5rem 0;
+
+      h4 {
+        font-size: 1rem;
+        color: $color-light;
+      }
+    }
+
+    &__nav {
+      margin-top: 2rem;
+      list-style-type: none;
+      text-align: center;
+
+      &-item {
+        padding: 0.2rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      &-link,
+      &-active {
+        color: $color-light;
+        text-decoration: none;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 300;
+        transition: all 0.3s;
+      }
+
+      &-link:hover {
+        color: $color-green-light;
+      }
+    }
+
+    @include respond(med) {
+      display: block;
+    }
+  }
+}
+
+.tracker-box {
+  margin-top: 17rem;
+  width: 100%;
+}
+
+.tracker-routes {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.tracker-container {
+  @include respond(med) {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    grid-column: sidebar-end / full-end;
+    grid-row: 1 / -1;
+  }
+
+  @include respond(large) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+  }
+}

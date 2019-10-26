@@ -1,67 +1,64 @@
 import React, { Component } from "react";
 import AllDivisionView from "./AllDivisionView";
 import { connect } from "react-redux";
-import Spinner2 from "../../../common/helpers/Spinner2";
+import { getLeaderboard } from "../LeaderboardActions";
 
 class AllDivisionLeaderboard extends Component {
-  state = {
-    session: ""
-  };
-
-  componentDidMount() {
-    const sessionTotalValue = this.props.match.params.id;
-
-    this.setState({
-      session: sessionTotalValue
-    });
+  componentDidUpdate(prevProps, prevState) {
+    const { getLeaderboard, session, users } = this.props;
+    if (prevProps.users !== this.props.users) {
+      const leaderboard = getLeaderboard(users, session);
+      leaderboard.getLeaderboard("overall");
+    }
   }
 
-  goBack = () => {
-    const { history } = this.props;
-
-    // Go back to previous page
-    history.goBack();
-  };
-
   render() {
-    const { overall } = this.props,
-      { session } = this.state;
-    if (overall) {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 mx-auto mt-1">
-              <button
-                style={{ marginTop: "30px" }}
-                onClick={this.goBack}
-                className="btn btn-back btn-lg"
-              >
-                <i className="fas fa-arrow-circle-left" /> Back
-              </button>
-              <div className="card">
-                <div
-                  style={{ marginBottom: ".7px" }}
-                  className="card-header text-center"
-                >
-                  <h3>{session}</h3>
-                </div>
+    const { overall, session, overallLeaderboard, closeModal } = this.props;
 
-                <AllDivisionView users={overall} session={session} />
-              </div>
-            </div>
-          </div>
+    return (
+      <div
+        className={
+          overallLeaderboard ? "popup popup-active leaderboard-popup" : "popup"
+        }
+      >
+        {/** LEADERBOARD HEADER **/}
+        <div className="leaderboard-popup__header">
+          <h3 className="header-3">{session} - Overall</h3>
+          <span>
+            <i
+              onClick={closeModal}
+              className="fas fa-times leaderboard-popup__icon"
+            ></i>
+          </span>
         </div>
-      );
-    } else {
-      return <Spinner2 />;
-    }
+
+        {/** LEADERBOARD CONTENT **/}
+        <div className="leaderboard-popup__content">
+          {overall.length > 0 ? (
+            <AllDivisionView users={overall} session={session} />
+          ) : (
+            <div className="leaderboard__empty">
+              <p>Be the first on the board!</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 }
 
+const actions = {
+  getLeaderboard
+};
+
 const mapState = state => {
   return {
-    overall: state.overall.overallUsers
+    users: state.firestore.ordered.users,
+    overall: state.leaderboard.overall
   };
 };
 
-export default connect(mapState)(AllDivisionLeaderboard);
+export default connect(
+  mapState,
+  actions
+)(AllDivisionLeaderboard);

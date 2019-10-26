@@ -34,27 +34,23 @@ class SessionSelector extends Component {
     }
 
     return (
-      <div style={{ float: "right" }}>
-        <div className="input-group">
-          <span
-            style={{
-              fontSize: "1.2rem",
-              marginRight: "10px",
-              marginTop: "5px"
-            }}
-          >
-            Session1
-          </span>
+      <div className="add-routes__status">
+        <span
+          style={{
+            fontSize: "1.2rem",
+            marginRight: "10px",
+            marginTop: "5px"
+          }}
+        >
+          {currentSession}
+        </span>
 
-          <div className="input-group-prepend ml-3">
-            <ActiveSessionToggle
-              onlineStatus={onlineStatus}
-              currentSession={currentSession}
-              updateSessionStatusOffline={this.updateSessionStatusOffline}
-              updateSessionStatusOnline={this.updateSessionStatusOnline}
-            />
-          </div>
-        </div>
+        <ActiveSessionToggle
+          onlineStatus={onlineStatus}
+          currentSession={currentSession}
+          updateSessionStatusOffline={this.updateSessionStatusOffline}
+          updateSessionStatusOnline={this.updateSessionStatusOnline}
+        />
       </div>
     );
   }

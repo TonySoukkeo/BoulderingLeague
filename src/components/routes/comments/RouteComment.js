@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import format from "date-fns/format";
 import { routeCommentQuery } from "../routeQuery";
-import { Link, withRouter } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { withRouter } from "react-router-dom";
+import { reduxForm } from "redux-form";
 import { addComment, deleteComment } from "../actions/CommentActions";
-
 import CommentForm from "./CommentForm";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -60,25 +58,23 @@ class RouteComment extends Component {
 
     if (session && profile) {
       return (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12 mt-3">
-              <button onClick={this.goBack} className="btn back-btn btn-lg">
-                <i className="fas fa-arrow-circle-left" /> Back
-              </button>
+        <React.Fragment>
+          <div className="route-comments">
+            <button onClick={this.goBack} className=" route-comments__btn">
+              <i className="fas fa-arrow-circle-left" /> Back
+            </button>
 
-              <CommentForm
-                handleSubmit={handleSubmit}
-                addComment={this.addComment}
-                session={session}
-                comments={comments}
-                routeName={routeName}
-                profile={profile}
-                onClickDeleteComment={this.onClickDeleteComment}
-              />
-            </div>
+            <CommentForm
+              handleSubmit={handleSubmit}
+              addComment={this.addComment}
+              session={session}
+              comments={comments}
+              routeName={routeName}
+              profile={profile}
+              onClickDeleteComment={this.onClickDeleteComment}
+            />
           </div>
-        </div>
+        </React.Fragment>
       );
     } else {
       return <div>Loading</div>;
@@ -102,7 +98,8 @@ const mapState = (state, ownProps) => {
     session: currentSession,
     routeName: currentRoute,
     profile: state.firebase.profile,
-    comments: state.firestore.ordered[currentSession]
+    comments: state.firestore.ordered[currentSession],
+    currentSession: state.currentSession.currentSession
   };
 };
 

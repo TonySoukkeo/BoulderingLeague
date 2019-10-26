@@ -1,2 +1,0 @@
-export const FETCH_SESSION = "FETCH_SESSION";
-export const FETCH_ATTEMPTS = "FETCH_ATTEMPTS";

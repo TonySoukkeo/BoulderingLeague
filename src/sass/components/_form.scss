@@ -1,0 +1,88 @@
+.form {
+  padding-top: 1.3rem;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__group {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    @include respond(med) {
+      width: 90%;
+      margin: 0 auto 1rem auto;
+    }
+  }
+
+  &__label {
+    color: $color-blue-dark;
+    font-size: 1rem;
+    margin-left: 0.4rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    background: $color-light;
+    border-bottom: 1px solid $color-green-light;
+    font-size: 16px;
+  }
+
+  &__btn {
+    padding: 0.3rem 1rem;
+    color: $color-green-dark;
+    border: 1px solid $color-green-light;
+    float: right;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $color-green-light;
+      color: $color-blue-dark;
+    }
+  }
+
+  &__validation {
+    text-transform: uppercase;
+    font-size: 0.1rem;
+    color: red;
+    transform: translate(0.5rem, -0.5rem);
+  }
+
+  // Radio input styling
+  &__radio {
+    display: flex;
+
+    &-input {
+      margin-left: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 16px;
+    }
+
+    &-label {
+      display: block;
+    }
+  }
+
+  // Text area
+  &__text-area {
+    width: 100%;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 0.2rem;
+    font-size: 16px;
+  }
+
+  // Comments input
+  &__comment {
+    width: 92%;
+    padding: 0.2rem;
+    font-size: 16px;
+  }
+}

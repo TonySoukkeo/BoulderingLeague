@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SignedInMenu from "./SignedInMenu";
 import SignedOutMenu from "./SignedOutMenu";
 import { toastr } from "react-redux-toastr";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { withFirebase } from "react-redux-firebase";
 
@@ -24,37 +24,12 @@ class NavBar extends Component {
       authenticated = auth.isLoaded && !auth.isEmpty;
 
     return (
-      <nav
-        style={{ zIndex: "99999" }}
-        className="navbar navbar-expand-lg sticky-top"
-      >
-        <div className="container">
-          <Link to={"/"} className="navbar-brand">
-            <img
-              style={{
-                height: "50px"
-              }}
-              src="/assets/logo.png"
-              alt="logo"
-            />
-          </Link>
-          <button
-            className="navbar-toggler navbar-dark"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-          >
-            <span className="navbar-toggler-icon " />
-          </button>
-
-          <div id="navbarNav" className="collapse navbar-collapse">
-            {authenticated ? (
-              <SignedInMenu profile={profile} signOut={this.signOut} />
-            ) : (
-              <SignedOutMenu />
-            )}
-          </div>
-        </div>
+      <nav className="navbar">
+        {!authenticated ? (
+          <SignedOutMenu />
+        ) : (
+          <SignedInMenu profile={profile} signOut={this.signOut} />
+        )}
       </nav>
     );
   }

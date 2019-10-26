@@ -1,62 +1,82 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { modalToggle } from "../../modals/modalsaction/ModalsAction";
+import LoginForm from "../../../auth/login/LoginForm";
+import SignUpForm from "../../../auth/signup/SignUpForm";
+import {
+  CLOSE_MODAL,
+  LOGIN_OPEN,
+  REGISTER_OPEN
+} from "../../modals/modalsaction/ModalConstants";
 import { Link } from "react-router-dom";
 
-const SignedOutMenu = () => {
-  return (
-    <React.Fragment>
-      <div className="d-none d-md-block ml-auto">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
+class SignedOutMenu extends Component {
+  loginFormOpen = () => {
+    const { modalToggle } = this.props;
+    modalToggle(LOGIN_OPEN);
+  };
+
+  registerFormOpen = () => {
+    const { modalToggle } = this.props;
+    modalToggle(REGISTER_OPEN);
+  };
+
+  closeModal = () => {
+    const { modalToggle } = this.props;
+    modalToggle(CLOSE_MODAL);
+  };
+
+  render() {
+    const { registerModal, loginModal } = this.props;
+
+    return (
+      <React.Fragment>
+        <ul className="navbar__list navbar__signedout">
+          <div className="navbar__signedout-logo">
+            <img src="assets/logo.png" alt="hiline logo" />
+          </div>
+          <li
+            onClick={this.loginFormOpen}
+            className="navbar__item navbar__login"
+          >
+            <a className="navbar__link">
+              <i className="fas fa-key navbar__icon"></i> Login
+            </a>
           </li>
-          <li className="nav-item">
-            <Link to="/signup" className="nav-link">
-              Sign Up
-            </Link>
+          <li
+            onClick={this.registerFormOpen}
+            className="navbar__item navbar__register"
+          >
+            <a className="navbar__link">
+              <i className="fas fa-id-badge navbar__icon"></i>
+              Register
+            </a>
           </li>
-          <li className="nav-item">
-            <Link to="/rules" className="nav-link">
-              Rules
-            </Link>
-          </li>
+          <Link to="/rules" className="navbar__link navbar__signedout-rules">
+            Rules
+          </Link>
         </ul>
-      </div>
-      <div className="d-block d-md-none ml-auto">
-        <ul className="navbar-nav ml-auto">
-          <li
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            className="nav-item"
-          >
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </li>
-          <li
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            className="nav-item"
-          >
-            <Link to="/signup" className="nav-link">
-              Sign Up
-            </Link>
-          </li>
-          <li
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            className="nav-item"
-            className="nav-item"
-          >
-            <Link to="/rules" className="nav-link">
-              Rules
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </React.Fragment>
-  );
+
+        <SignUpForm
+          registerModal={registerModal}
+          closeModal={this.closeModal}
+        />
+        <LoginForm loginModal={loginModal} closeModal={this.closeModal} />
+      </React.Fragment>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  registerModal: state.modal.registerModal,
+  loginModal: state.modal.loginModal
+});
+
+const actions = {
+  modalToggle
 };
 
-export default SignedOutMenu;
+export default connect(
+  mapStateToProps,
+  actions
+)(SignedOutMenu);

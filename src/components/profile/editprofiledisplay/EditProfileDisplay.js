@@ -19,15 +19,16 @@ const EditProfileDisplay = ({ user }) => {
 
   if (user) {
     return (
-      <div className="text-center">
+      
+      <React.Fragment>
         <img
-          style={{ height: "250px", borderRadius: "50%" }}
+          className="profile__main-img"
           src={user.photoURL || "/assets/user.png"}
           alt="profile picture"
         />
         <p className="mt-4">
           <Link to="/profile/upload">
-            <span style={{ fontSize: ".8rem" }}>
+            <span>
               <i className="fas fa-edit " /> Change Profile Picture
             </span>
           </Link>
@@ -37,14 +38,7 @@ const EditProfileDisplay = ({ user }) => {
         </h2>
         <p style={{ color: "#c6c6c6" }}>Member since: {createdAt}</p>
 
-        <div
-          style={{
-            marginTop: "10px",
-            color: "#c6c6c6",
-            borderTop: "1px solid green",
-            paddingTop: "10px"
-          }}
-        >
+        <div>
           {user.about}
           <br />
           <p className="mt-5">
@@ -57,7 +51,7 @@ const EditProfileDisplay = ({ user }) => {
               </p>
             ))}
         </div>
-      </div>
+      </React.Fragment>
     );
   } else {
     return <div>Loading</div>;

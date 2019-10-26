@@ -1,0 +1,77 @@
+// Margin / Padding
+.mb-small {
+  margin-bottom: 1.2rem;
+}
+
+.mb-med {
+  margin-bottom: 2rem;
+}
+
+// Button
+.btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  border-radius: 50px;
+}
+
+.text-success {
+  background-color: $color-green-light;
+}
+
+.text-danger {
+  background-color: $color-yellow-light;
+}
+
+.text-grey {
+  background: grey !important;
+}
+
+// Loading
+.loading {
+  transform: translateY(50%);
+  width: 100%;
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+// Disabled
+.disabled {
+  background: grey !important;
+}
+
+// FORM CONTROL STYLING
+.form-control {
+  &__comment {
+    width: 84%;
+  }
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.spinner {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba($color-black, 0.8);
+  z-index: 999;
+
+  &__img {
+    width: 10%;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}

@@ -13,6 +13,9 @@ import {
 import { registerUser } from "../AuthActions";
 import { toastr } from "react-redux-toastr";
 import { withRouter } from "react-router-dom";
+import { CLOSE_MODAL } from "../../components/modals/modalsaction/ModalConstants";
+import { modalToggle } from "../../components/modals/modalsaction/ModalsAction";
+import Spinner from "../../common/helpers/Spinner";
 
 const validate = combineValidators({
   firstName: isRequired("First Name"),
@@ -35,98 +38,132 @@ class SignUpForm extends Component {
   registerUser = async user => {
     const { registerUser, history } = this.props;
 
-    console.log(user);
     // Check to see if gender is selected and passwords match
     if (user.password !== user.confirmPassword) {
       toastr.error("Error", "Passwords doesn't match");
     } else {
-      try {
-        await registerUser(user);
-        // Redirect
-        history.push("/tracker");
-      } catch (error) {
-        console.log(error);
-        toastr.error("Error", "Could Not Create profile");
-      }
+      await registerUser(user, history);
     }
   };
 
+  closeModal = () => {
+    const { modalToggle } = this.props;
+
+    modalToggle(CLOSE_MODAL);
+  };
+
   render() {
-    const { handleSubmit, initialValues } = this.props;
+    const { handleSubmit, registerModal, loading } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.registerUser)}>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="firstName">
-            First Name
-          </label>
-          <Field name="firstName" type="text" component={TextInput} />
-        </div>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="lastName">
-            Last Name
-          </label>
-          <Field name="lastName" type="text" component={TextInput} />
-        </div>
+      <div
+        className={
+          registerModal ? "popup popup-lg popup-active" : "popup popup-lg"
+        }
+      >
+        <i onClick={this.closeModal} className="fas fa-times popup__icon"></i>
 
-        <div className="d-flex">
-          <label className="mr-2 signup-form-label">Gender: </label>
-          <Field
-            type="radio"
-            name="gender"
-            value="male"
-            label="Male"
-            component={RadioInput}
-          />
+        <form className="form" onSubmit={handleSubmit(this.registerUser)}>
+          <div className="form__group">
+            <label className="form__label" htmlFor="firstName">
+              First Name
+            </label>
+            <Field
+              id="firstName"
+              name="firstName"
+              type="text"
+              component={TextInput}
+            />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="lastName">
+              Last Name
+            </label>
+            <Field
+              id="lastName"
+              name="lastName"
+              type="text"
+              component={TextInput}
+            />
+          </div>
 
-          <Field
-            type="radio"
-            name="gender"
-            value="female"
-            label="Female"
-            component={RadioInput}
-          />
-        </div>
+          <div className="form__group">
+            <label className="form__label">Gender: </label>
+            <Field
+              type="radio"
+              name="gender"
+              value="male"
+              label="Male"
+              component={RadioInput}
+            />
 
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="dateOfBirth">
-            Date of Birth
-          </label>
-          <Field name="dateOfBirth" type="date" component={TextInput} />
-        </div>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="email">
-            Email
-          </label>
-          <Field name="email" type="email" component={TextInput} />
-        </div>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="password">
-            Password
-          </label>
+            <Field
+              type="radio"
+              name="gender"
+              value="female"
+              label="Female"
+              component={RadioInput}
+            />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="dateOfBirth">
+              Date of Birth
+            </label>
+            <Field
+              id="dateOfBirth"
+              name="dateOfBirth"
+              type="date"
+              component={TextInput}
+            />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="email">
+              Email
+            </label>
+            <Field id="email" name="email" type="email" component={TextInput} />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
 
-          <Field name="password" type="password" component={TextInput} />
-        </div>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="confirmPassword">
-            Confirm Password
-          </label>
-          <Field name="confirmPassword" type="password" component={TextInput} />
-        </div>
-        <button type="submit" className="btn sign-up-btn">
-          Sign Up
-        </button>
-      </form>
+            <Field
+              id="password"
+              name="password"
+              type="password"
+              component={TextInput}
+            />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+            <Field
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              component={TextInput}
+            />
+          </div>
+          <button type="submit" className="btn form__btn">
+            Register
+          </button>
+        </form>
+        {loading ? <Spinner /> : null}
+      </div>
     );
   }
 }
 
 const mapState = state => ({
-  initialValues: state.registerUser.user
+  initialValues: state.registerUser.user,
+  registerModal: state.modal.registerModal,
+  loading: state.loading.loading
 });
 
 const actions = {
-  registerUser
+  registerUser,
+  modalToggle
 };
 
 export default withRouter(

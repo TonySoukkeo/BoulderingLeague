@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { compose } from "redux";
 import { combineValidators, isRequired } from "revalidate";
 import { withRouter } from "react-router-dom";
 import TextInput from "../../common/form/TextInput";
-import { toastr } from "react-redux-toastr";
+import { loginUser } from "../AuthActions";
+import { modalToggle } from "../../components/modals/modalsaction/ModalsAction";
+import { CLOSE_MODAL } from "../../components/modals/modalsaction/ModalConstants";
+import Spinner from "../../common/helpers/Spinner";
 
 const validate = combineValidators({
   email: isRequired("email"),
@@ -12,50 +17,65 @@ const validate = combineValidators({
 
 class LoginForm extends Component {
   userSignIn = async user => {
-    const { loginUser, reset, history } = this.props;
-    try {
-      await loginUser(user);
-      history.push("/tracker");
-    } catch (error) {
-      toastr.error("Oops", "Invalid Login Credentials");
-    }
+    const { loginUser, history } = this.props;
+
+    await loginUser(user, history);
+  };
+
+  closeModal = () => {
+    const { modalToggle } = this.props;
+
+    modalToggle(CLOSE_MODAL);
   };
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, loginModal, loading } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.userSignIn)}>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="email">
-            Email
-          </label>
-          <Field
-            name="email"
-            type="email"
-            component={TextInput}
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label className="signup-form-label" htmlFor="email">
-            Password
-          </label>
-          <Field
-            name="password"
-            component={TextInput}
-            type="password"
-            className="form-control"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
-      </form>
+      <div className={loginModal ? "popup popup-active" : "popup"}>
+        <i onClick={this.closeModal} className="fas fa-times popup__icon"></i>
+
+        <form className="form" onSubmit={handleSubmit(this.userSignIn)}>
+          <div className="form__group">
+            <label className="form__label" htmlFor="email">
+              Email
+            </label>
+            <Field id="email" name="email" type="email" component={TextInput} />
+          </div>
+          <div className="form__group">
+            <label className="form__label" htmlFor="password">
+              Password
+            </label>
+            <Field
+              id="password"
+              name="password"
+              component={TextInput}
+              type="password"
+            />
+          </div>
+          <button type="submit" className="btn form__btn">
+            Login
+          </button>
+        </form>
+        {loading ? <Spinner /> : null}
+      </div>
     );
   }
 }
 
-export default withRouter(
-  reduxForm({ form: "loginForm", validate })(LoginForm)
-);
+const actions = {
+  loginUser,
+  modalToggle
+};
+
+const mapStateToProps = state => ({
+  loginModal: state.modal.loginModal,
+  loading: state.loading.loading
+});
+
+export default compose(
+  connect(
+    mapStateToProps,
+    actions
+  )
+)(withRouter(reduxForm({ form: "loginForm", validate })(LoginForm)));

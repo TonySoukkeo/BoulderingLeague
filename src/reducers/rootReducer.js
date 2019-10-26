@@ -3,20 +3,24 @@ import { firebaseReducer } from "react-redux-firebase";
 import { firestoreReducer } from "redux-firestore";
 import { reducer as FormReducer } from "redux-form";
 import { reducer as toastrReducer } from "react-redux-toastr";
-import TrackerReducer from "../components/tracker/TrackerReducer";
-import AdultReducer from "../components/leaderboard/adultdivision/AdultReducer";
-import LeaderBoardReducer from "../components/leaderboard/LeaderBoardReducer";
 import BannerReducer from "../components/layout/banner/bannerreducer/BannerReducer";
+import ModalsReducer from "../components/modals/modalsreducer/ModalsReducer";
+import ProfileReducer from "../components/profile/ProfileReducer";
+import asyncReducer from "../common/helpers/async/asyncReducer";
+import LeaderboardReducer from "../components/leaderboard/LeaderboardReducer";
+import sessionReducer from "../components/tracker/currentsession/CurrentSessionReducer";
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   form: FormReducer,
-  session: TrackerReducer,
-  adult: AdultReducer,
-  overall: LeaderBoardReducer,
   toastr: toastrReducer,
-  registerUser: BannerReducer
+  registerUser: BannerReducer,
+  modal: ModalsReducer,
+  profile: ProfileReducer,
+  loading: asyncReducer,
+  leaderboard: LeaderboardReducer,
+  currentSession: sessionReducer
 });
 
 export default rootReducer;

@@ -1,35 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AllDivisionView = ({ users }) => {
+const AllDivisionView = ({ users, session }) => {
   let rank = 0;
   return (
-    <ul className="list-group">
+    <ul className="leaderboard-popup__list">
       {users.map(x => (
-        <li key={x.uid} className="list-group-item leaderboard">
-          <h5>
-            <span style={{ color: "black", fontWeight: "bold" }}>
-              {(rank += 1)}
+        <li key={x.uid} className="leaderboard-popup__item">
+          <span className="leaderboard-popup__rank">{(rank += 1)}</span>
+          <Link to={`/profile/${x.uid}`} className="leaderboard-popup__profile">
+            <img
+              className="leaderboard-popup__img"
+              src={x.photoURL || "/assets/user.png"}
+              alt="profile"
+            />
+
+            <span className="leaderboard-popup__name">
+              {x.firstName} {x.lastName}{" "}
             </span>
-            <Link to={`/${x.uid}`}>
-              <img
-                style={{
-                  width: "50px",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                  marginLeft: "20px"
-                }}
-                src={x.photoURL || "/assets/user.png"}
-                alt="profile"
-              />
-              <span className="leaderboard-names">
-                {x.firstName} {x.lastName}{" "}
-              </span>
-            </Link>
-            <span className="badge badge-pill leaderboard-badge">
-              {x.session}
-            </span>
-          </h5>
+          </Link>
+
+          <span className="leaderboard-popup__badge">
+            {x.session[`${session}Total`]}
+          </span>
         </li>
       ))}
     </ul>

@@ -10,16 +10,16 @@ const TextInput = ({
   meta: { touched, error }
 }) => {
   return (
-    <div>
+    <React.Fragment>
       <input
         {...input}
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        className="form-control"
+        className="form__input"
       />
-      {touched && error && <div className="text-danger mt-2">{error}</div>}
-    </div>
+      {touched && error && <div className="form__validation">{error}</div>}
+    </React.Fragment>
   );
 };
 

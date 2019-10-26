@@ -8,11 +8,15 @@ const CommentInput = ({
   meta: { touched, error }
 }) => {
   return (
-    <input
+    <textarea
+      rows="5"
+      max-rows="10"
+      cols="10"
+      wrap="hard"
       {...input}
       type={type}
       placeholder={placeholder}
-      className="form-control"
+      className="form__comment"
     />
   );
 };

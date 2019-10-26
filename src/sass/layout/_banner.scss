@@ -1,0 +1,113 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  background-image: linear-gradient(
+      rgba($color-black, 0.5),
+      rgba($color-black, 0.5)
+    ),
+    url("../assets/banner.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 70vh;
+
+  @include respond(small) {
+    align-items: center;
+  }
+
+  @include respond(large) {
+    height: 100vh;
+  }
+
+  &__header-block {
+    position: relative;
+    display: none;
+    margin: 5rem 0 5rem 0;
+    @include respond(large) {
+      display: initial;
+    }
+
+    &-lead {
+      position: absolute;
+      color: $color-blue-dark;
+      border-radius: 3px;
+      top: -2.4rem;
+      left: -1rem;
+      padding: 0.5rem 1rem;
+      background: rgba($color-green-med, 0.8);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    &-main {
+      color: $color-light;
+      font-size: 2.5rem;
+      letter-spacing: 0.7rem;
+      background: rgba($color-orange, 0.7);
+      padding: 0.8rem 2rem;
+      border-radius: 3px;
+      box-shadow: $box-shadow;
+      display: none;
+
+      @include respond(med) {
+        display: initial;
+      }
+    }
+  }
+
+  &__heading-1,
+  &__heading-2 {
+    color: $color-green-med;
+  }
+
+  &__heading-1 {
+    font-size: 3.5rem;
+
+    @include respond(small) {
+      font-size: 4rem;
+      padding-right: 5rem;
+    }
+  }
+
+  &__heading-2 {
+    font-size: 1.5rem;
+    padding-left: 3.5rem;
+    letter-spacing: 0.1rem;
+
+    @include respond(small) {
+      font-size: 2rem;
+    }
+  }
+
+  &__button {
+    color: $color-light;
+    background: rgba($color-yellow-light, 0.6);
+    padding: 0.7rem 1.5rem;
+    align-self: center;
+    cursor: pointer;
+
+    @include respond(small) {
+      font-size: 1rem;
+    }
+  }
+
+  &--emphasize {
+    color: $color-light;
+    font-style: italic;
+  }
+}
+
+.main-header {
+  @include respond(med) {
+    grid-column: full-start / full-end;
+  }
+}
+
+.homepage {
+  @include respond(med) {
+    grid-column: sidebar-end / full-end;
+    overflow-y: scroll;
+  }
+}

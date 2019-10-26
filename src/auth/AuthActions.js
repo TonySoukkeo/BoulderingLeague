@@ -1,25 +1,39 @@
+import { CLOSE_MODAL } from "../components/modals/modalsaction/ModalConstants";
 import moment from "moment";
 import { toastr } from "react-redux-toastr";
+import {
+  asyncActionStart,
+  asyncActionFinish,
+  asyncActionError
+} from "../common/helpers/async/asyncActions";
 
 // USER LOGIN
-export const loginUser = creds => async (
+export const loginUser = (creds, history) => async (
   dispatch,
   getState,
   { getFirebase }
 ) => {
   const firebase = getFirebase();
   try {
+    dispatch(asyncActionStart());
+
     await firebase
       .auth()
       .signInWithEmailAndPassword(creds.email, creds.password);
+
+    dispatch(asyncActionFinish());
+    // Close modal
+    dispatch({ type: CLOSE_MODAL, payload: false });
+
+    history.push("/tracker");
   } catch (error) {
-    console.log(error);
-    toastr.error("Oops", "Login Credentials incorrect");
+    dispatch(asyncActionError());
+    toastr.error("Invalid Credentials", "Password or Email is incorrect");
   }
 };
 
 // REGISTER NEW USER
-export const registerUser = user => async (
+export const registerUser = (user, history) => async (
   dispatch,
   getState,
   { getFirebase, getFirestore }
@@ -31,6 +45,7 @@ export const registerUser = user => async (
   let division;
 
   try {
+    dispatch(asyncActionStart());
     // Create user in firebase
     await firebase
       .auth()
@@ -70,8 +85,16 @@ export const registerUser = user => async (
     await firestore.set(`users/${firebase.auth().currentUser.uid}`, {
       ...newUser
     });
+
+    dispatch(asyncActionFinish());
+
+    // Close modal
+    dispatch({ type: CLOSE_MODAL, payload: false });
+
+    // Redirect
+    history.push("/tracker");
   } catch (error) {
-    console.log(error);
+    dispatch(asyncActionError());
     toastr.error("Oops", "Could not create account");
   }
 };
@@ -115,7 +138,6 @@ export const updateProfile = user => async (
     });
     toastr.success("Success", "Profile has been updated");
   } catch (error) {
-    console.log(error);
     toastr.error("Oops", "Could not update profile");
   }
 };

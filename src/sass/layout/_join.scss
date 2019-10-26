@@ -1,0 +1,30 @@
+.join {
+  background: $color-dark;
+  padding: 2rem;
+  text-align: center;
+
+  @include respond(med) {
+    grid-column: full-start / full-end;
+  }
+
+  &__header {
+    color: $color-light;
+    font-size: 1.3rem;
+
+    @include respond(large) {
+      font-size: 2rem;
+    }
+  }
+
+  &__btn {
+    margin-top: 1.3rem;
+    background: $color-yellow-light;
+    padding: 0.5rem 1.4rem;
+    font-size: 1rem;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

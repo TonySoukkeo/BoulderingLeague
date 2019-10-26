@@ -1,0 +1,49 @@
+.add-routes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15rem 0 2rem 0;
+  padding: 0 1rem;
+
+  @include respond(med) {
+    margin: 0 0 2rem 0;
+  }
+
+  @include respond(large) {
+    grid-column: 1 / 9;
+
+    margin: 2rem 0;
+  }
+
+  &__location {
+    text-align: center;
+
+    &-img {
+      width: 40%;
+    }
+  }
+
+  &--btn {
+    padding: 0.5rem 1.3rem;
+    box-shadow: $box-shadow;
+    color: $color-light;
+    background: $color-blue-light;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__btn {
+    padding: 0.3rem 0.5rem;
+
+    &--online {
+      color: $color-green-dark;
+    }
+
+    &--offline {
+      color: $color-orange;
+    }
+  }
+}

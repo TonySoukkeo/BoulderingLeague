@@ -7,25 +7,25 @@ const ActiveSessionToggle = ({
   onlineStatus
 }) => {
   return (
-    <div style={{ float: "right" }}>
+    <React.Fragment>
       {onlineStatus ? (
         <button
           onClick={() => updateSessionStatusOffline(currentSession)}
-          className="btn btn-warning text-uppercase"
+          className="btn add-routes__btn add-routes__btn--online"
         >
           {" "}
-          <i style={{ color: "green" }} className="fas fa-circle" /> Online
+          <i className="fas fa-circle" /> Online
         </button>
       ) : (
         <button
           onClick={() => updateSessionStatusOnline(currentSession)}
-          className="btn btn-warning text-uppercase"
+          className="btn add-routes__btn add-routes__btn--offline"
         >
           {" "}
-          <i style={{ color: "red" }} className="fas fa-circle" /> Offline
+          <i className="fas fa-circle" /> Offline
         </button>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

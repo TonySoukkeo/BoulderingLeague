@@ -1,18 +1,38 @@
-import { FETCH_ALL } from "./LeaderboardConstants";
+import {
+  GET_OVERALL_LEADERBOARD,
+  GET_YOUTH_LEADERBOARD,
+  GET_ADULT_LEADERBOARD
+} from "./LeaderboardConstants";
 
 const initialState = {
-  overallUsers: []
+  youth: [],
+  adult: [],
+  overall: []
 };
 
-const LeaderBoardReducer = (state = initialState, action) => {
+const LeaderboardReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_ALL:
+    case GET_YOUTH_LEADERBOARD:
       return {
-        overallUsers: action.payload
+        ...state,
+        youth: action.payload
       };
+
+    case GET_ADULT_LEADERBOARD:
+      return {
+        ...state,
+        adult: action.payload
+      };
+
+    case GET_OVERALL_LEADERBOARD:
+      return {
+        ...state,
+        overall: action.payload
+      };
+
     default:
       return state;
   }
 };
 
-export default LeaderBoardReducer;
+export default LeaderboardReducer;

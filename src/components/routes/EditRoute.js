@@ -10,13 +10,15 @@ class EditRoute extends Component {
     const { initialValues, user, currentRoute } = this.props;
     if (initialValues) {
       return (
-        <div className="container mt-5 mb-5">
-          <RouteField
-            user={user}
-            initialValues={initialValues[0]}
-            currentRoute={currentRoute}
-          />
-        </div>
+        <React.Fragment>
+          <div className="edit-route">
+            <RouteField
+              user={user}
+              initialValues={initialValues[0]}
+              currentRoute={currentRoute}
+            />
+          </div>
+        </React.Fragment>
       );
     } else {
       return <div>Loading</div>;

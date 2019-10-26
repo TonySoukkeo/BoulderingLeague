@@ -6,8 +6,11 @@ import { addRoute } from "../../routes/RoutesAction";
 import TextArea from "../../../common/form/TextArea";
 import TextInput from "../../../common/form/TextInput";
 import SelectInput from "../../../common/form/SelectInput";
+import { toastr } from "react-redux-toastr";
+import { modalToggle } from "../../modals/modalsaction/ModalsAction";
+import { CLOSE_MODAL } from "../../modals/modalsaction/ModalConstants";
 
-const session = [{ key: "session2", text: "Session 2", value: "session2" }],
+const session = [{ key: "session3", text: "Session 3", value: "session3" }], // change for each session change
   grade = [
     {
       key: "v0",
@@ -138,103 +141,129 @@ const validate = combineValidators({
 class AdminAddRoute extends Component {
   addNewRoute = route => {
     const { addRoute, hideRoute } = this.props;
-    // Add route
-    addRoute(route);
-    // hide display
-    hideRoute();
+    if (route.routeName.includes("#")) {
+      toastr.error("Error", "Name cannot include #");
+    } else {
+      // Add route
+      addRoute(route);
+      // hide display
+      hideRoute();
+    }
+  };
+
+  closeModal = () => {
+    const { modalToggle } = this.props;
+
+    modalToggle(CLOSE_MODAL);
   };
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitting, addRoutesModal } = this.props;
 
     return (
-      <div className="card mt-3">
-        <div className="card-header">Add new route</div>
-        <div className="card-body">
-          <form onSubmit={handleSubmit(this.addNewRoute)}>
-            <div className="form-group">
-              <label htmlFor="session">Session:</label>
-              <Field
-                name="session"
-                component={SelectInput}
-                type="text"
-                options={session}
-                multiple={false}
-                className="form-control"
-              />
-              <Field
-                name="routeName"
-                component={TextInput}
-                type="text"
-                placeholder="Route Name"
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <div className="text-center">
-                <img
-                  style={{
-                    height: "209px",
-                    width: "296px"
-                  }}
-                  src="/assets/gym_layout/gym-layout.png"
-                  alt="gym layout"
-                />
-              </div>
+      <div className={addRoutesModal ? "popup  popup-active" : "popup "}>
+        <form className="form" onSubmit={handleSubmit(this.addNewRoute)}>
+          <div className="form__header">
+            <i
+              onClick={this.closeModal}
+              className="fas fa-times popup__icon"
+            ></i>
+          </div>
 
-              <br />
-              <label htmlFor="location">Route Location</label>
+          <div className="form__group">
+            <label className="form__label" htmlFor="session">
+              Session:
+            </label>
+            <Field
+              name="session"
+              component={SelectInput}
+              type="text"
+              options={session}
+              multiple={false}
+            />
+          </div>
 
-              <Field
-                name="location"
-                type="number"
-                component={SelectInput}
-                options={location}
-                multiple={false}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="routeGrade">Grade: </label>
-              <Field
-                name="routeGrade"
-                component={SelectInput}
-                type="text"
-                options={grade}
-                multiple={false}
-                className="form-control"
-              />
-            </div>
+          <div className="form__group">
+            <Field
+              name="routeName"
+              component={TextInput}
+              type="text"
+              placeholder="Route Name"
+              className="form-control"
+            />
+          </div>
+
+          <div className="form__group add-routes__location">
+            <img
+              className="add-routes__location-img"
+              src="/assets/gym_layout/gym-layout.png"
+              alt="gym layout"
+            />
+          </div>
+
+          <div className="form__group">
+            <label className="form__label" htmlFor="location">
+              Route Location
+            </label>
+
+            <Field
+              name="location"
+              type="number"
+              component={SelectInput}
+              options={location}
+              multiple={false}
+            />
+          </div>
+
+          <div className="form__group">
+            <label className="form__label" htmlFor="routeGrade">
+              Grade:{" "}
+            </label>
+
+            <Field
+              name="routeGrade"
+              component={SelectInput}
+              type="text"
+              options={grade}
+              multiple={false}
+            />
+          </div>
+
+          <div className="form__group">
             <Field
               name="description"
               component={TextArea}
               type="text"
               placeholder="Description"
               rows={7}
-              className="form-control"
             />
-            <hr />
-            <button
-              type="submit"
-              disabled={pristine || submitting}
-              style={{ float: "right" }}
-              className="btn btn-primary mr-2"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={pristine || submitting}
+            style={{ float: "right" }}
+            className="btn form__btn"
+          >
+            Add
+          </button>
+        </form>
       </div>
     );
   }
 }
 
 const actions = {
-  addRoute
+  addRoute,
+  modalToggle
 };
 
+const mapState = state => ({
+  addRoutesModal: state.modal.addRoutesModal
+});
+
 export default connect(
-  null,
+  mapState,
   actions
 )(
   reduxForm({ form: "addRoutes", validate, enableReinitialize: true })(

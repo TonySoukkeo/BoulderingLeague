@@ -1,0 +1,157 @@
+.rules {
+  margin-top: 4rem;
+  font-size: 1rem;
+
+  @include respond(med) {
+    margin-top: 0;
+    padding-top: 2rem;
+    overflow-y: scroll;
+    grid-column: sidebar-end / full-end;
+  }
+
+  button {
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__header,
+  &__content {
+    padding: 1rem;
+
+    @include respond(med) {
+      padding: 2rem;
+    }
+  }
+
+  &__author {
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+
+    @include respond(large) {
+      padding: 2rem 2rem 0 2rem;
+    }
+
+    &-img {
+      width: 15%;
+      border: 1px solid $color-black;
+      box-shadow: $box-shadow;
+
+      @include respond(large) {
+        width: 8%;
+      }
+    }
+
+    &-text {
+      margin-left: 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__header {
+    margin-bottom: 1rem;
+
+    &-hr {
+      height: 1px;
+      width: 90%;
+      background: $color-blue-dark;
+      margin: 0 auto;
+    }
+
+    &-title {
+      font-size: 2rem;
+      text-align: center;
+      margin: 1rem 0;
+
+      @include respond(large) {
+        margin: 1rem 0 2rem 0;
+      }
+    }
+  }
+
+  &__getting-started {
+    background: $color-grey;
+    padding: 2rem 1rem;
+
+    @include respond(med) {
+      padding: 2rem;
+    }
+  }
+
+  &__content {
+    margin-bottom: 1.5rem;
+
+    h2 {
+      color: $color-green-dark;
+    }
+  }
+
+  &__list {
+    padding: 1rem;
+
+    &-item {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &--xp {
+      display: block;
+      margin: 0 auto;
+      width: 90%;
+
+      @include respond(large) {
+        width: 50%;
+      }
+
+      li {
+        position: relative;
+        display: block;
+        list-style-type: none;
+        background: linear-gradient(
+            115deg,
+            $color-blue-dark 0%,
+            $color-blue-dark 60%,
+            transparent 60%
+          ),
+          $color-light;
+        color: $color-orange;
+        font-weight: bold;
+        padding: 2rem 0 2rem 2rem;
+        overflow: hidden;
+        box-shadow: $box-shadow;
+
+        span {
+          position: absolute;
+          display: block;
+          left: 10%;
+          top: 50%;
+          transform: translateY(-50%);
+          font-weight: normal;
+          font-size: 4rem;
+          color: $color-green-light;
+
+          &:last-child {
+            font-size: 2rem;
+            font-weight: bold;
+            left: 70%;
+            color: $color-orange;
+          }
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+
+        &:last-child span:not(:last-child) {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  &__xp {
+    background: $color-grey;
+    padding: 2rem 0;
+  }
+}

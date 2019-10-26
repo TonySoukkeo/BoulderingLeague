@@ -1,94 +1,63 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { withRouter } from "react-router-dom";
-import Spinner2 from "../../../common/helpers/Spinner2";
 import YouthView from "./YouthView";
+import { getLeaderboard } from "../LeaderboardActions";
 
 class YouthLeaderboard extends Component {
-  state = {
-    youth: [],
-    session: ""
-  };
+  componentDidUpdate(prevProps, prevState) {
+    const { users, session, getLeaderboard } = this.props;
 
-  componentDidMount() {
-    const sessionTotalValue = this.props.match.params.id;
-
-    this.setState({
-      session: sessionTotalValue
-    });
+    if (prevProps.users !== this.props.users) {
+      const leaderboard = getLeaderboard(users, session);
+      leaderboard.getLeaderboard("youth");
+    }
   }
 
-  getYouthDivision = users => {
-    const user = users.filter(x => x.division === "youth"),
-      { session } = this.state;
-
-    const hasSession = user.filter(x => x.session);
-
-    // filter out users with session totals
-    const youth = hasSession.filter(x => x.session[session]);
-
-    // Sort user total from high to low
-    const sessionTotal = youth.sort(
-      (a, b) => b.session[session] - a.session[session]
-    );
-    return sessionTotal;
-  };
-
-  goBack = () => {
-    const { history } = this.props;
-
-    // Go back to previous page
-    history.goBack();
-  };
-
   render() {
-    const { session } = this.state,
-      { users } = this.props;
+    const { session, youthLeaderboard, closeModal, youth } = this.props;
 
-    if (users) {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 mx-auto mt-1">
-              <button
-                style={{ marginTop: "30px" }}
-                onClick={this.goBack}
-                className="btn btn-back btn-lg"
-              >
-                <i className="fas fa-arrow-circle-left" /> Back
-              </button>
-              <div className="card">
-                <div
-                  style={{ marginBottom: ".7px" }}
-                  className="card-header text-center"
-                >
-                  <h3>{session}</h3>
-                </div>
-
-                <YouthView
-                  users={this.getYouthDivision(users)}
-                  session={session}
-                />
-              </div>
-            </div>
-          </div>
+    return (
+      <div
+        className={
+          youthLeaderboard ? "popup popup-active leaderboard-popup" : "popup"
+        }
+      >
+        {/** LEADERBOARD HEADER **/}
+        <div className="leaderboard-popup__header">
+          <h3 className="header-3">{session} - Youth Division</h3>
+          <span>
+            <i
+              onClick={closeModal}
+              className="fas fa-times leaderboard-popup__icon"
+            ></i>
+          </span>
         </div>
-      );
-    } else {
-      return <Spinner2 />;
-    }
+
+        {/** LEADERBOARD CONTENT **/}
+        <div className="leaderboard-popup__content">
+          {youth.length > 0 ? (
+            <YouthView users={youth} session={session} />
+          ) : (
+            <div className="leaderboard__empty">
+              <p>Be the first on the board!</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 }
 
+const actions = {
+  getLeaderboard
+};
+
 const mapState = state => ({
-  users: state.firestore.ordered.users
+  users: state.firestore.ordered.users,
+  youth: state.leaderboard.youth
 });
 
-export default withRouter(
-  compose(
-    connect(mapState),
-    firestoreConnect([{ collection: "users" }])
-  )(YouthLeaderboard)
-);
+export default connect(
+  mapState,
+  actions
+)(YouthLeaderboard);

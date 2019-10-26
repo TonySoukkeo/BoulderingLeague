@@ -1,0 +1,76 @@
+.compete {
+  @include respond(med) {
+    grid-column: full-start / full-end;
+  }
+
+  &__header {
+    background: $color-green-med;
+    width: 45%;
+    padding: 0.7rem 1rem;
+    color: $color-dark;
+    box-shadow: $box-shadow;
+    margin-bottom: 1.5rem;
+
+    @include respond(small) {
+      width: 30%;
+    }
+
+    @include respond(med) {
+      width: 22%;
+    }
+
+    @include respond(large) {
+      width: 18%;
+    }
+
+    @include respond(larger) {
+      width: 14%;
+    }
+  }
+
+  &__content {
+    padding: 1rem;
+
+    @include respond(larger) {
+      text-align: center;
+
+      p {
+        font-size: 1.6rem;
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  &__rules {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    &-desc {
+      font-size: 0.8rem;
+      display: block;
+      font-weight: bold;
+      text-align: center;
+
+      @include respond(large) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__btn {
+    margin-top: 1rem;
+    background: $color-dark;
+    align-self: center;
+    padding: 0.5rem 2rem;
+    color: $color-yellow-light;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $color-green-light;
+    }
+  }
+}

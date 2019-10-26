@@ -9,12 +9,12 @@ const SelectInput = ({
   meta: { touched, error }
 }) => {
   return (
-    <div className="form-group">
+    <div className="form__group">
       <select
         multiple={multiple}
         {...input}
         name="custom-select"
-        className="form-control"
+        className="form__input"
       >
         <option>{placeholder}</option>
         {options.map(option => (

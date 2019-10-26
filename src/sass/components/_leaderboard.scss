@@ -1,0 +1,300 @@
+.leaderboard-block-sm {
+  @include respond(med) {
+    display: none;
+  }
+}
+
+.leaderboard-block-md {
+  display: none;
+
+  @include respond(med) {
+    display: block;
+    margin: 2rem 0;
+  }
+
+  @include respond(large) {
+    grid-column: 9 / -1;
+    background: $color-grey;
+    margin: 0;
+  }
+}
+
+.leaderboard {
+  transform: translateY(14rem);
+  padding: 1rem;
+
+  @include respond(med) {
+    transform: translateY(0);
+  }
+
+  @include respond(large) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+  &-header {
+    padding-left: 1rem;
+    border-left: 2.5px solid $color-green-light;
+    margin-bottom: 1rem;
+
+    @include respond(med) {
+      display: none;
+    }
+
+    @include respond(large) {
+      border: none;
+      margin-top: 1rem;
+    }
+  }
+
+  &__content {
+    @include respond(large) {
+      position: absolute;
+      width: 90%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__overall {
+    position: relative;
+    cursor: pointer;
+    background-image: linear-gradient(
+        rgba($color-black, 0.4),
+        rgba($color-black, 0.4)
+      ),
+      url("../assets/overall-leaderboard-banner.jpeg");
+    background-size: cover;
+    height: 8rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+
+    @include respond(med) {
+      height: 10rem;
+    }
+
+    &-text {
+      position: absolute;
+      bottom: 0;
+      right: 5%;
+      font-size: 3rem;
+      font-weight: 300;
+      color: $color-light;
+
+      @include respond(large) {
+        font-size: 2rem;
+      }
+    }
+
+    @include respond(large) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__group {
+    display: flex;
+
+    @include respond(large) {
+      flex-direction: column;
+    }
+
+    &-youth,
+    &-adult {
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    &-adult {
+      position: relative;
+      background-image: linear-gradient(
+          rgba($color-green-med, 0.5),
+          rgba($color-green-med, 0.5)
+        ),
+        url("../assets/adult-leaderboard-banner.jpg");
+      background-size: cover;
+      width: 50%;
+      height: 8rem;
+      color: $color-light;
+      font-size: 2rem;
+      margin-right: 1rem;
+      border-radius: 3px;
+
+      @include respond(med) {
+        height: 10rem;
+      }
+
+      &-text {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        font-size: 2rem;
+        color: $color-light;
+        font-weight: 300;
+      }
+
+      @include respond(large) {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+    }
+
+    &-youth {
+      position: relative;
+      width: 50%;
+      height: 8rem;
+      background-image: linear-gradient(
+          rgba($color-orange, 0.5),
+          rgba($color-orange, 0.5)
+        ),
+        url("../assets/youth-leaderboard-banner.jpeg");
+      background-size: cover;
+      border-radius: 3px;
+
+      @include respond(med) {
+        height: 10rem;
+      }
+
+      &-text {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        font-size: 2rem;
+        color: $color-light;
+        font-weight: 300;
+      }
+
+      @include respond(large) {
+        width: 100%;
+      }
+    }
+  }
+
+  // HOVER EFFECTS FOR LEADERBOARD BLOCKS
+  &__overall:hover,
+  &__group-adult:hover,
+  &__group-youth:hover {
+    transform: scale(1.05);
+  }
+
+  // WHEN LEADERBOARD IS EMPTY
+  &__empty {
+    background: $color-light;
+    position: absolute;
+    right: 0;
+    left: 0;
+    padding: 2rem;
+    text-align: center;
+
+    p {
+      font-size: 1rem;
+
+      @include respond(med) {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+// LEADERBOARD POPUP
+.leaderboard-popup {
+  background: $color-light;
+  padding: 0;
+  overflow: initial;
+
+  &__icon {
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  &__rank {
+    color: $color-blue-dark;
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    @include respond(med) {
+      font-size: 1rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    background: $color-green-light;
+    padding: 1rem;
+  }
+
+  &__content {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    max-height: 80vh;
+  }
+
+  &__list {
+    list-style-type: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    transition: all 0.2s;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-green-light;
+    }
+
+    &:hover {
+      background: $color-blue-dark;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    text-decoration: none;
+    color: $color-black;
+  }
+
+  &__item:hover &__profile {
+    color: $color-light;
+  }
+
+  &__item:hover &__rank {
+    color: $color-green-light;
+  }
+
+  &__img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+    @include respond(med) {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  &__name {
+    margin-left: 1rem;
+    transition: all 0.2s;
+
+    @include respond(med) {
+      font-size: 1rem;
+    }
+  }
+
+  &__badge {
+    background: $color-orange;
+    padding: 0.2rem 1rem;
+    color: $color-light;
+    border-radius: 1rem;
+    margin-left: auto;
+  }
+}

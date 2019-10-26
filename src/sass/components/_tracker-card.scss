@@ -1,0 +1,218 @@
+.tracker-card {
+  position: relative;
+  overflow: hidden;
+  background: $color-dark;
+  border-radius: 3px;
+  margin-bottom: 2rem;
+
+  @include respond(large) {
+    width: 95%;
+    margin: 0 auto 2rem auto;
+  }
+
+  &__header-comments {
+    text-decoration: none;
+  }
+
+  &__grade {
+    position: absolute;
+    top: -1rem;
+    left: -1.7rem;
+    height: 5rem;
+    width: 5rem;
+    background: $color-green-light;
+    border-radius: 50%;
+
+    @include respond(large) {
+      height: 6rem;
+      width: 6rem;
+    }
+
+    span {
+      display: block;
+      transform: translate(2.2rem, 1.3rem);
+      font-size: 2rem;
+      color: $color-light;
+
+      @include respond(large) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  &__icon {
+    font-size: 1rem;
+    color: $color-blue-light;
+    padding-right: 0.3rem;
+
+    &:hover {
+      color: $color-blue-med;
+    }
+
+    @include respond(large) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: linear-gradient(
+      to right,
+      $color-green-light,
+      $color-green-med
+    );
+    padding: 0.8rem 1rem 0.8rem 0;
+
+    &-name {
+      font-size: 1.3rem;
+      margin-right: 2rem;
+      color: $color-blue-dark;
+      letter-spacing: 0.06rem;
+
+      @include respond(med) {
+        font-size: 1.3rem;
+      }
+
+      @include respond(large) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__climbed {
+    cursor: pointer;
+    float: right;
+    margin: 1rem;
+    color: $color-light;
+    font-weight: 300;
+    padding: 0.2rem 0.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    background: $color-blue-light;
+    transition: all 0.2s;
+
+    @include respond(large) {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: $color-blue-dark;
+    }
+  }
+
+  &__content {
+    display: flex;
+    padding: 0 1rem;
+    color: $color-light;
+    margin-top: 4rem;
+
+    &-desc {
+      width: 60%;
+      margin-right: 1.2rem;
+      font-weight: 300;
+      font-size: 1.2rem;
+
+      @include respond(med) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &-map {
+      width: 40%;
+    }
+
+    &-img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  // ATTEMPTS SECTION
+  &__attempts {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-box {
+      display: flex;
+    }
+
+    &-btn {
+      cursor: pointer;
+      position: relative;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+
+      @include respond(large) {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      i {
+        font-size: 1.2rem;
+        color: $color-light;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &:nth-child(1) {
+        background: $color-yellow-light;
+        margin-right: 0.8rem;
+      }
+
+      &:nth-child(2) {
+        background: $color-green-light;
+      }
+    }
+
+    &-results {
+      color: $color-yellow-light;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1rem;
+
+    // SUBMIT BUTTON
+    &-submit {
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 0.8rem 1.4rem;
+      border: none;
+      outline: none;
+      border-radius: 3px;
+      transform: translateY(0.1rem);
+      margin-left: auto;
+
+      @include respond(large) {
+        font-size: 1rem;
+      }
+    }
+
+    &-admin {
+      span > i {
+        cursor: pointer;
+        font-size: 1rem;
+        margin-right: 1rem;
+        color: $color-light;
+
+        @include respond(large) {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
